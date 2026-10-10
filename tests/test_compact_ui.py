@@ -7,6 +7,7 @@ import copy
 import functools
 import http.server
 import json
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -240,6 +241,26 @@ class CompactUITests(unittest.TestCase):
                     self.assertGreater(result['checked'], 0)
                     self.assertEqual(result['collisions'], [])
                     self.assertTrue(self.page.evaluate('document.documentElement.scrollWidth <= innerWidth'))
+
+    def test_stat_context_uses_paragraphs_and_separate_sources(self):
+        for width in [1440, 768, 390, 320]:
+            with self.subTest(width=width):
+                self.page.set_viewport_size({'width': width, 'height': 900})
+                self.load()
+                card = self.page.locator('#stats .stat').first
+                card.locator('.stat-note summary').click()
+                paragraphs = card.locator('.stat-context p').all_inner_texts()
+                normalize = lambda text: re.sub(r'\s+', ' ', text).strip()
+                self.assertEqual(normalize(' '.join(paragraphs)), normalize(self.data['stats'][0]['note']))
+                self.assertGreater(len(paragraphs), 1)
+                self.assertEqual(card.locator('.stat-context a').count(), 0)
+                source_urls = card.locator('.stat-sources a').evaluate_all('(els)=>els.map(el=>el.getAttribute("href"))')
+                expected = self.data['stats'][0]['src']
+                self.assertEqual(source_urls, expected if isinstance(expected, list) else [expected])
+                grid = self.page.locator('#stats').bounding_box()
+                box = card.bounding_box()
+                self.assertAlmostEqual(box['width'], grid['width'] - 2, delta=2)
+                self.assertTrue(self.page.evaluate('document.documentElement.scrollWidth <= innerWidth'))
 
 
 if __name__ == '__main__':

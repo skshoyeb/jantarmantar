@@ -88,6 +88,23 @@ def dom_signature(fragment):
 
 
 class LiveRenderTests(unittest.TestCase):
+    def test_stat_context_formatting_preserves_text_and_initials(self):
+        data = json.loads((ROOT / 'data.json').read_text())
+        note = ('K.N. Balagopal and Adv. Fidal Tom were mentioned. '
+                'A report includes 🌏, quotes " and <unverified> claims; '
+                'Not independently verified. ' + 'A separate attributed statement. ' * 20)
+        data['stats'][0]['note'] = note
+        page, parts = self.build(data)
+        static = inner_html(page, 'stats')
+        self.assert_region('stats', static, parts['stats'])
+        context = re.search(r'<div class="stat-context">(.*?)</div>', static, re.S).group(1)
+        paragraphs = [html.unescape(text) for text in re.findall(r'<p>(.*?)</p>', context, re.S)]
+        normalize = lambda text: re.sub(r'\s+', ' ', text).strip()
+        self.assertEqual(normalize(' '.join(paragraphs)), normalize(note))
+        self.assertGreater(len(paragraphs), 1)
+        self.assertTrue(any('K.N. Balagopal and Adv. Fidal Tom' in p for p in paragraphs))
+        self.assertIn('<div class="stat-sources"><h4>Sources</h4>', static)
+
     def test_unicode_update_sharing_matches_static_and_live(self):
         data = json.loads((ROOT / 'data.json').read_text())
         data['timeline'][0]['e'] = 'Quotes " & apostrophes\' emoji 🌏 हिन्दी ' + 'a' * 220

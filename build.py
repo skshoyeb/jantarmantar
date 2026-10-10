@@ -194,8 +194,32 @@ def feed_item(item, pinned=False):
         f'</article>'
     )
 
+def context_paragraphs(note):
+    # Add readable breaks without rewriting the bot's wording or splitting initials.
+    pieces = re.split(r'(?<=[.!?;])\s+(?=[A-Z0-9])|\n+', str(note))
+    sentences = []
+    abbreviation = r'(?:\b[A-Z]\.|\b(?:Mr|Ms|Mrs|Dr|Prof|Adv|Sr|Jr|St|Sec|No|vs|etc)\.|\be\.g\.|\bi\.e\.)$'
+    for piece in pieces:
+        piece = piece.strip()
+        if not piece:
+            continue
+        if sentences and re.search(abbreviation, sentences[-1]):
+            sentences[-1] += ' ' + piece
+        else:
+            sentences.append(piece)
+    paragraphs, current = [], ''
+    for sentence in sentences:
+        if current and len(current) + len(sentence) + 1 > 320:
+            paragraphs.append(current)
+            current = sentence
+        else:
+            current = current + ' ' + sentence if current else sentence
+    if current:
+        paragraphs.append(current)
+    return '<div class="stat-context">' + ''.join(f'<p>{e(text)}</p>' for text in paragraphs) + '</div>'
+
 stats = ''.join(
-    f'<article class="stat"><p class="v">{e(s["value"])}</p><h3>{e(s["label"])}</h3><details class="stat-note"><summary>Context &amp; sources</summary><p>{e(s["note"])} {links(s["src"])}</p></details></article>'
+    f'<article class="stat"><p class="v">{e(s["value"])}</p><h3>{e(s["label"])}</h3><details class="stat-note"><summary>Context &amp; sources</summary>{context_paragraphs(s["note"])}<div class="stat-sources"><h4>Sources</h4>{links(s["src"])}</div></details></article>'
     for s in d['stats']
 )
 feed = ''.join(feed_item(item) for item in ordered)
@@ -358,6 +382,12 @@ h2 small{font:400 .75rem/1.6 ui-sans-serif,system-ui,sans-serif;letter-spacing:0
 .stat-note>summary{cursor:pointer;font-size:.72rem;color:var(--muted);width:fit-content}
 .stat-note>summary:hover{color:var(--accent)}
 .stat-note[open]>summary{margin-bottom:10px}
+.stat:has(.stat-note[open]){grid-column:1 / -1;border-right:0}
+.stat-context{max-width:78ch;margin-top:18px}
+.stat .stat-context p{font-size:.85rem;line-height:1.85;color:var(--ink);margin:0 0 16px}
+.stat .stat-context p:last-child{margin-bottom:0}
+.stat-sources{margin-top:20px;padding-top:14px;border-top:1px solid var(--line)}
+.stat-sources h4{margin:0 0 8px;color:var(--muted);font:700 .67rem/1.5 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase}
 .stat p{margin:0;color:var(--muted);font-size:.77rem}
 .person{padding:24px}
 .person.very-important{border-top:3px solid var(--accent)}
@@ -675,6 +705,28 @@ function pictureCards(rows) {
   return cards;
 }
 
+function contextParagraphs(note) {
+  var pieces = String(note).split(/(?<=[.!?;])\s+(?=[A-Z0-9])|\n+/);
+  var sentences = [];
+  var abbreviation = /(?:\b[A-Z]\.|\b(?:Mr|Ms|Mrs|Dr|Prof|Adv|Sr|Jr|St|Sec|No|vs|etc)\.|\be\.g\.|\bi\.e\.)$/;
+  for (var piece of pieces) {
+    piece = piece.trim();
+    if (!piece) continue;
+    if (sentences.length && abbreviation.test(sentences[sentences.length - 1])) sentences[sentences.length - 1] += ' ' + piece;
+    else sentences.push(piece);
+  }
+  var paragraphs = [];
+  var current = '';
+  for (var sentence of sentences) {
+    if (current && Array.from(current).length + Array.from(sentence).length + 1 > 320) {
+      paragraphs.push(current);
+      current = sentence;
+    } else current = current ? current + ' ' + sentence : sentence;
+  }
+  if (current) paragraphs.push(current);
+  return '<div class="stat-context">' + paragraphs.map(function (text) { return '<p>' + esc(text) + '</p>'; }).join('') + '</div>';
+}
+
 function renderParts(d) {
   if (!d || !d.timeline || !d.detainees) throw new Error("incomplete data");
   var fullTitle = String(d.title);
@@ -687,7 +739,7 @@ function renderParts(d) {
   var stats = "";
   for (var s = 0; s < d.stats.length; s++) {
     var st = d.stats[s];
-    stats += '<article class="stat"><p class="v">' + esc(st.value) + "</p><h3>" + esc(st.label) + '</h3><details class="stat-note"><summary>Context &amp; sources</summary><p>' + esc(st.note) + " " + links(st.src) + "</p></details></article>";
+    stats += '<article class="stat"><p class="v">' + esc(st.value) + "</p><h3>" + esc(st.label) + '</h3><details class="stat-note"><summary>Context &amp; sources</summary>' + contextParagraphs(st.note) + '<div class="stat-sources"><h4>Sources</h4>' + links(st.src) + "</div></details></article>";
   }
   var pins = "";
   for (var p = 0; p < top.length; p++) pins += feedItem(top[p], true);
