@@ -50,13 +50,17 @@ a:hover{color:var(--link-hover)}
 a:focus-visible{outline:2px solid var(--accent);outline-offset:5px;border-radius:2px}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .bar{position:sticky;top:0;z-index:30;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px 20px;padding:22px max(28px,calc((100vw - 1184px)/2));background:var(--header);border-top:4px solid var(--accent);border-bottom:1px solid var(--line)}
-.brand{grid-column:1;min-width:0}
+.brand{grid-column:1;min-width:0;display:flex;align-items:center;gap:16px}
+.brand-mark{display:block;flex:0 0 58px;width:58px;height:58px;object-fit:contain}
+.brand-copy{min-width:0}
 .subtitle{margin:7px 0 0;color:var(--muted);font-size:.85rem;line-height:1.5;letter-spacing:.02em}
 .subtitle:empty{display:none}
 .status-row{grid-column:1;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
 .live{display:inline-flex;align-items:center;gap:7px;padding:3px 8px;border:1px solid var(--line);border-radius:4px;color:var(--accent);font-size:.6rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
 .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
 h1{margin:0;font:500 clamp(1.8rem,3vw,2.45rem)/1.1 Georgia,"Times New Roman",serif;letter-spacing:-.04em;text-wrap:balance}
+.brand h1::after{content:"";display:block;width:36px;height:2px;margin-top:9px;background:var(--accent)}
+.bar{background-image:linear-gradient(90deg,var(--vip-bg),transparent 42%);border-top-width:3px}
 .updated{margin:0;color:var(--muted);font-size:.7rem;letter-spacing:.02em}
 .updated time{color:var(--ink);font-weight:600}
 .theme{grid-column:2;grid-row:1 / 3;align-self:start;border:1px solid var(--line);border-radius:4px;padding:7px 12px;color:var(--muted);font-size:.75rem;font-weight:600;cursor:pointer}
@@ -175,9 +179,19 @@ footer{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);max-wid
 .photo-caption{font:400 .95rem/1.5 Georgia,serif;margin:12px 0 0}
 .photo-card .srcs{margin-top:8px}
 .pin .hero img{object-fit:contain;background:var(--bg)}
-.person .thumb{float:right;width:112px;margin:0 0 12px 16px}
+.person .thumb{width:112px;margin:0;grid-column:2;grid-row:2;align-self:start}
 .person .thumb img{aspect-ratio:4/3;object-fit:contain}
-.person-main{display:flow-root}
+.person-main{display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:12px 16px}
+.person-main>*{grid-column:1 / -1;min-width:0}
+.person-main>.thumb{grid-column:2;grid-row:2}
+.person-main>.who{margin:0;padding:0;border:0}
+.person-main:has(>.thumb:not([hidden]))>.who{grid-column:1;grid-row:2;align-self:center}
+.person-main>.where,.person-main>.detail,.person-main>.reason{margin:0}
+.person .credit{overflow-wrap:anywhere}
+@media(max-width:400px){
+ .person-main{grid-template-columns:minmax(0,1fr) 88px;column-gap:12px}
+ .person .thumb{width:88px}
+}
 .collection-controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0 24px}
 .collection-count{flex:1 1 180px;color:var(--muted);font-size:.75rem}
 .collection-controls button{padding:8px 12px;border:1px solid var(--line);border-radius:4px;background:var(--card);color:var(--ink);font:600 .75rem/1.5 system-ui,sans-serif;cursor:pointer}
@@ -229,7 +243,10 @@ footer{padding-bottom:40px}
 @media(max-width:700px){
   html{scroll-padding-top:250px}
   .bar{padding:16px;gap:12px}
-  h1{font-size:1.8rem}
+  .brand{gap:10px}
+  .brand-mark{flex-basis:36px;width:36px;height:42px}
+  h1{font-size:1.5rem}
+  .brand h1::after{width:26px;margin-top:7px}
   .subtitle{font-size:.75rem;margin-top:6px}
   .live{padding:3px 6px;font-size:.55rem;gap:5px}
   .status-row{grid-column:1 / -1;gap:8px}
@@ -260,7 +277,7 @@ footer{padding-bottom:40px}
 }
 </style></head><body id="page-top">
 <input id="light" class="sr" type="checkbox" aria-label="Switch to light mode">
-<header class="bar"><div class="brand"><h1>Jantar Mantar 2.0</h1><p class="subtitle">CJP / anti-SIR protest, Delhi</p></div>
+<header class="bar"><div class="brand"><img class="brand-mark" src="/jantar-mantar-logo.png" alt="" width="58" height="58" decoding="async"><div class="brand-copy"><h1>Jantar Mantar 2.0</h1><p class="subtitle">CJP / anti-SIR protest, Delhi</p></div></div>
 <div class="status-row"><span class="live"><span class="dot" aria-hidden="true"></span>Live</span><p class="updated">Last updated <time>10 Oct 2026, 11:10 PM IST</time></p></div>
 <label class="theme" for="light"><span class="off">Light</span><span class="on">Dark</span></label>
 <nav class="section-nav" aria-label="Page sections">

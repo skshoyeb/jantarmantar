@@ -204,6 +204,36 @@ class CompactUITests(unittest.TestCase):
         expect(target).to_be_visible()
         self.assertEqual(self.page.evaluate('location.hash'), '#' + target_id)
 
+    def test_people_images_and_credits_do_not_overlap_metadata(self):
+        for width in [1440, 1024, 768, 700, 390, 320]:
+            for font_size in [16, 32]:
+                with self.subTest(width=width, font_size=font_size):
+                    self.page.set_viewport_size({'width': width, 'height': 900})
+                    self.load()
+                    self.page.add_style_tag(content=f'html{{font-size:{font_size}px}}')
+                    self.page.locator('[data-controls="people"] [data-action="all"]').click()
+                    result = self.page.locator('#people .person').evaluate_all('''cards => {
+                      const collisions = [];
+                      let checked = 0;
+                      for (const card of cards) {
+                        const figure = card.querySelector('figure:not([hidden])');
+                        if (!figure) continue;
+                        checked++;
+                        const image = figure.getBoundingClientRect();
+                        for (const text of card.querySelectorAll('.person-id,.who,.where,.detail,.reason,.srcs')) {
+                          const box = text.getBoundingClientRect();
+                          if (image.left < box.right - 1 && image.right > box.left + 1 &&
+                              image.top < box.bottom - 1 && image.bottom > box.top + 1) {
+                            collisions.push(card.querySelector('h3').textContent + ': ' + text.className);
+                          }
+                        }
+                      }
+                      return {checked, collisions};
+                    }''')
+                    self.assertGreater(result['checked'], 0)
+                    self.assertEqual(result['collisions'], [])
+                    self.assertTrue(self.page.evaluate('document.documentElement.scrollWidth <= innerWidth'))
+
 
 if __name__ == '__main__':
     unittest.main()
