@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<title>Jantar Mantar Updates</title>
+<rect width="64" height="64" rx="12" fill="#101719"/>
+<path d="M20 17h25v23c0 11-7 16-17 16-5 0-9-2-12-5l6-7c2 2 4 3 6 3 5 0 7-2 7-7V26H20z" fill="#ffab75"/>
+<circle cx="51" cy="12" r="5" fill="#ffab75"/>
+</svg>

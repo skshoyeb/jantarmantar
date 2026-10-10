@@ -1,9 +1,49 @@
 import json, html, os, re
 from urllib.parse import urlparse
+from urllib.parse import urlencode
+from datetime import datetime, timedelta, timezone
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 d = json.load(open(os.path.join(ROOT, 'data.json')))
 e = lambda s: html.escape(str(s))
+
+SITE_URL = 'https://jantarmantar.sholock.com/'
+SITE_NAME = 'Jantar Mantar Updates'
+DESCRIPTION = (
+    'Follow the Jantar Mantar 2.0 / CJP anti-SIR protest in Delhi: '
+    'reported detentions, court developments and source-linked updates compiled by Grok Bot.'
+)
+SOCIAL_IMAGE = SITE_URL + 'social-preview.png'
+SOCIAL_IMAGE_ALT = 'Jantar Mantar 2.0: CJP / anti-SIR protest updates from Delhi, compiled by Grok Bot. Verify linked sources.'
+
+# Use the bot's recorded update time, never the build clock.
+try:
+    updated_iso = datetime.strptime(d['last_updated_ist'], '%d %b %Y, %I:%M %p IST').replace(
+        tzinfo=timezone(timedelta(hours=5, minutes=30))
+    ).isoformat()
+except (KeyError, ValueError, TypeError):
+    updated_iso = None
+
+webpage = {
+    '@type': 'WebPage', '@id': SITE_URL + '#webpage', 'url': SITE_URL,
+    'name': d['title'], 'description': DESCRIPTION, 'inLanguage': 'en-IN',
+    'isPartOf': {'@id': SITE_URL + '#website'},
+    'primaryImageOfPage': {'@type': 'ImageObject', 'url': SOCIAL_IMAGE, 'width': 1200, 'height': 630},
+}
+if updated_iso:
+    webpage['dateModified'] = updated_iso
+structured_data = json.dumps({
+    '@context': 'https://schema.org',
+    '@graph': [
+        {'@type': 'WebSite', '@id': SITE_URL + '#website', 'url': SITE_URL,
+         'name': SITE_NAME, 'inLanguage': 'en-IN'},
+        webpage,
+    ],
+}, ensure_ascii=False).replace('<', '\\u003c').replace('>', '\\u003e').replace('&', '\\u0026')
+share_text = d['title'] + ' — source-linked updates compiled by Grok Bot. Verify linked sources.'
+share_x = 'https://twitter.com/intent/tweet?' + urlencode({'text': share_text, 'url': SITE_URL})
+share_whatsapp = 'https://wa.me/?' + urlencode({'text': share_text + '\n' + SITE_URL})
+share_facebook = 'https://www.facebook.com/sharer/sharer.php?' + urlencode({'u': SITE_URL})
 
 def links(value):
     if not value:
@@ -226,6 +266,15 @@ h2 small{font:400 .75rem/1.6 ui-sans-serif,system-ui,sans-serif;letter-spacing:0
 .sources li{font-size:.75rem}
 footer{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);max-width:85ch;color:var(--muted);font-size:.73rem}
 footer code{font-size:.7rem;color:var(--ink)}
+.share-panel{margin-top:48px;padding-bottom:24px}
+.share-panel h2{margin-top:0}
+.share-actions{display:flex;flex-wrap:wrap;gap:10px}
+.share-actions a,.share-actions button{padding:9px 14px;border:1px solid var(--line);border-radius:4px;background:var(--card);color:var(--ink);font:600 .78rem/1.5 ui-sans-serif,system-ui,sans-serif;text-decoration:none;cursor:pointer}
+.share-actions a:hover,.share-actions button:hover{border-color:var(--accent);color:var(--accent)}
+.share-actions button:focus-visible,.share-url:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.share-status{min-height:1.7em;color:var(--muted);font-size:.75rem;margin:10px 0 0}
+.share-url{width:100%;max-width:440px;margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:4px;background:var(--card);color:var(--ink);font-size:.8rem}
+[hidden]{display:none!important}
 @media(min-width:1000px){
   .item{display:grid;grid-template-columns:205px minmax(0,1fr);gap:0 24px}
   .item .meta{align-content:start;align-items:baseline;flex-direction:column;gap:6px;padding-top:4px}
@@ -258,12 +307,36 @@ footer code{font-size:.7rem;color:var(--ink)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media print{
   :root{--bg:#fff;--card:#fff;--header:#fff;--ink:#111;--muted:#444;--line:#ccc;--accent:#823616;--link:#823616;--vip-bg:#fff}
-  .bar{position:static}.theme,.section-nav,.back-top{display:none}.pin,.person,.stat,.court{break-inside:avoid;box-shadow:none}
+  .bar{position:static}.theme,.section-nav,.back-top,.share-panel{display:none}.pin,.person,.stat,.court{break-inside:avoid;box-shadow:none}
 }
 '''
 
 page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{e(d["title"])}</title><style>{CSS}</style></head><body id="page-top">
+<title>{e(d["title"])}</title>
+<meta name="description" content="{e(DESCRIPTION)}">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#101719">
+<link rel="canonical" href="{e(SITE_URL)}">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{e(SITE_NAME)}">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="{e(d['title'])}">
+<meta property="og:description" content="{e(DESCRIPTION)}">
+<meta property="og:url" content="{e(SITE_URL)}">
+<meta property="og:image" content="{e(SOCIAL_IMAGE)}">
+<meta property="og:image:secure_url" content="{e(SOCIAL_IMAGE)}">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{e(SOCIAL_IMAGE_ALT)}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{e(d['title'])}">
+<meta name="twitter:description" content="{e(DESCRIPTION)}">
+<meta name="twitter:image" content="{e(SOCIAL_IMAGE)}">
+<meta name="twitter:image:alt" content="{e(SOCIAL_IMAGE_ALT)}">
+<script type="application/ld+json">{structured_data}</script>
+<style>{CSS}</style></head><body id="page-top">
 <input id="light" class="sr" type="checkbox" aria-label="Switch to light mode">
 <header class="bar"><span class="live"><span class="dot" aria-hidden="true"></span>Live</span><h1>{e(d["title"])}</h1>
 <p class="updated">Last updated <time>{e(d["last_updated_ist"])}</time></p>
@@ -294,8 +367,45 @@ page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name
 <div><h2 id="legal-context">Legal context (reference)</h2><div class="box"><ul>{legal}</ul></div></div></div>
 <h2 id="caveats">Caveats</h2><div class="box"><ul>{caveats}</ul></div>
 <h2 id="sources">Sources</h2><div class="box"><ul class="sources">{sources}</ul></div>
+<section class="share-panel" aria-labelledby="share-heading">
+<h2 id="share-heading">Share this dashboard</h2>
+<p class="section-note">Bot-compiled updates. Please verify reports with the linked sources.</p>
+<div class="share-actions">
+<a href="{e(share_x)}" target="_blank" rel="noopener noreferrer" aria-label="Share on X (opens a new tab)">Share on X</a>
+<a href="{e(share_whatsapp)}" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp (opens a new tab)">WhatsApp</a>
+<a href="{e(share_facebook)}" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook (opens a new tab)">Facebook</a>
+<button type="button" id="copy-link" hidden>Copy link</button>
+</div>
+<input class="share-url" id="share-url" type="url" value="{e(SITE_URL)}" readonly aria-label="Dashboard link to copy">
+<p class="share-status" id="share-status" role="status" aria-live="polite"></p>
+</section>
 <footer>Auto-generated by a Grok bot from mainstream media, official statements and labelled social-media posts. Not an official record. To refresh: edit data.json, then run <code>python3 build.py</code>.</footer>
-</main><a class="back-top" href="#page-top" aria-label="Back to top of page">Back to top</a></body></html>'''
+</main><a class="back-top" href="#page-top" aria-label="Back to top of page">Back to top</a>
+<script>
+const copyButton = document.getElementById('copy-link');
+const shareUrl = document.getElementById('share-url');
+const shareStatus = document.getElementById('share-status');
+copyButton.hidden = false;
+shareUrl.hidden = true;
+copyButton.addEventListener('click', async () => {{
+  try {{
+    await navigator.clipboard.writeText(shareUrl.value);
+    shareStatus.textContent = 'Link copied.';
+  }} catch {{
+    shareUrl.hidden = false;
+    shareUrl.focus();
+    shareUrl.select();
+    shareStatus.textContent = 'Select and copy the link below.';
+  }}
+}});
+</script></body></html>'''
 
 open(os.path.join(ROOT, 'index.html'), 'w').write(page)
+open(os.path.join(ROOT, 'robots.txt'), 'w').write('User-agent: *\nAllow: /\n\nSitemap: ' + SITE_URL + 'sitemap.xml\n')
+lastmod = f'<lastmod>{e(updated_iso)}</lastmod>' if updated_iso else ''
+open(os.path.join(ROOT, 'sitemap.xml'), 'w').write(
+    '<?xml version="1.0" encoding="UTF-8"?>\n'
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+    f'<url><loc>{e(SITE_URL)}</loc>{lastmod}</url></urlset>\n'
+)
 print('built', len(ordered), 'updates;', len(top), 'pinned')
