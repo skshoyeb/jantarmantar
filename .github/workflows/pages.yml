@@ -33,9 +33,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        with:
-          # Pages is not enabled yet, and the REST API is forbidden for this token.
-          enablement: true
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
