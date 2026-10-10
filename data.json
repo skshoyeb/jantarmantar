@@ -1,17 +1,18 @@
 {
   "title": "Jantar Mantar 2.0 — CJP / anti-SIR protest, Delhi",
-  "last_updated_ist": "10 Oct 2026, 4:37 PM IST",
+  "last_updated_ist": "10 Oct 2026, 4:53 PM IST",
   "summary": "The Cockroach Janta Party (CJP), a youth movement, along with Left groups, student unions and civil-society groups, called a protest at Jantar Mantar, New Delhi, on Sat 10 Oct 2026. They want Chief Election Commissioner Gyanesh Kumar to resign and the Special Intensive Revision (SIR) of voter rolls scrapped. Critics say SIR has removed more than 130 million names (NPR/AP). Delhi Police refused permission and locked down central Delhi: BNSS Sec 163 orders, about 45 metro stations shut, trains cancelled, internet cut within 4 km, and roughly 23,000 CAPF personnel deployed. Police detained CJP founder Abhijeet Dipke and leaders Saurav Das and Ashutosh Ranka on board their flight. YouTuber Dhruv Rathee was detained at his Gurugram home. Opposition leaders, lawyers and journalists were also detained. INDIA bloc street protests have been running since about 2 Oct, and Rahul Gandhi was detained on 6 and 7 Oct.",
   "stats": [
     {
       "label": "Detained in Delhi today (media)",
-      "value": "1,500+",
-      "note": "Times of India, about midday 10 Oct. India Today said 400+ by midday. Delhi Police said about 500 plus about 50 'with criminal antecedents' by about 9:45 AM, then police sources said about 200 more at Connaught Place. PTI, citing police sources, said around 1,000 across the city at about 3:57 PM. Outside Delhi: Chennai, 100+ detained near Elliott's Beach (NDTV, ~4:22 PM). Pune detentions also reported (Scroll); no number.",
+      "value": "About 5,000",
+      "note": "A Delhi Police officer told The Hindu around 5,000 protesters were detained across Delhi till 2 PM and taken to temporary detention facilities (The Hindu live blog, 2:57 PM entry; Scroll repeated it at ~4:45 PM). Earlier figures: TOI 1,500+ (midday); PTI citing police sources ~1,000 (3:57 PM). Outside Delhi: Chennai 100+ (NDTV, ~4:22 PM); Bengaluru at least 50 AISA students at Freedom Park (The Hindu, 3:21 PM); Mumbai detentions at August Kranti Maidan (The Hindu, 4:38 PM), no number; Pune detentions (Scroll), no number.",
       "src": [
+        "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece",
+        "https://scroll.in/latest/1096305/cec-protest-mamata-banerjee-arvind-kejriwal-among-opposition-leaders-detained",
+        "https://x.com/scroll_in/status/2108878962277470264",
         "https://timesofindia.indiatimes.com/city/delhi/over-1500-protestors-detained-across-delhi-cjp-leaders-shifted-to-different-locations/articleshow/134849162.cms",
-        "https://x.com/PTI_News/status/2108867076169621776",
-        "https://www.ndtv.com/india-news/over-100-detained-during-protest-in-chennai-seeking-gyanesh-kumars-resignation-12166059",
-        "https://x.com/scroll_in/status/2108874809497284870"
+        "https://x.com/PTI_News/status/2108867076169621776"
       ]
     },
     {
@@ -29,13 +30,13 @@
     {
       "label": "Released today",
       "value": "No official count",
-      "note": "A group of lawyers detained near the Supreme Court were released after the CJI stepped in (about 2:30 PM). No other releases on 10 Oct were confirmed as of 4:37 PM.",
+      "note": "A group of lawyers detained near the Supreme Court were released after the CJI stepped in (about 2:30 PM). No other releases on 10 Oct were confirmed as of 4:53 PM.",
       "src": "https://www.barandbench.com/news/litigation/delhi-cjp-protest-detained-lawyers-released-after-scba-sg-intervene"
     },
     {
       "label": "Named key figures still held",
       "value": "At least 12",
-      "note": "Dipke, Das, Ranka, Dhruv Rathee, Ratna Singh, Arvind Kejriwal, Manish Sisodia, Sanjay Singh, Saurabh Bharadwaj, Durgesh Pathak, Prashant Bhushan and Dipankar Bhattacharya. No release reported for any of them as of about 4:37 PM IST.",
+      "note": "Dipke, Das, Ranka, Dhruv Rathee, Ratna Singh, Arvind Kejriwal, Manish Sisodia, Sanjay Singh, Saurabh Bharadwaj, Durgesh Pathak, Prashant Bhushan and Dipankar Bhattacharya. No release reported for any of them as of about 4:53 PM IST.",
       "src": "https://www.tribuneindia.com/liveblog/delhi/delhi-cjp-protest-live-updates-cjps-jantar-mantar-2-0-today-amid-traffic-curbs/"
     }
   ],
@@ -55,11 +56,14 @@
       "when": "10 Oct, about 10:30 AM IST (ThePrint live blog)",
       "where": "On board an Air India flight from Mumbai, just after landing at IGI Airport, Delhi. Later moved to Gurugram (TOI)",
       "reason": "Protest was banned / had no permission. No written grounds reported",
-      "status": "Held. CJP alleges he has no access to lawyers. His grandmother died in Hingoli the same day Police sources (PTI, ~4:06 PM) say he was told of his grandmother's death and left to decide whether to stay or go home for her last rites. Delhi Police (via ANI, ~4:26 PM) say he was offered help to travel home on humanitarian grounds for his grandmother's funeral. No release reported as of 4:37 PM.",
+      "status": "Held. CJP alleges he has no access to lawyers. His grandmother died in Hingoli the same day Police sources (PTI, ~4:06 PM) say he was told of his grandmother's death and left to decide whether to stay or go home for her last rites. Delhi Police (via ANI, ~4:26 PM) say he was offered help to travel home on humanitarian grounds for his grandmother's funeral. At 1:08 PM, intelligence sources told The Hindu that Dipke, Das and Ranka were taken to three different locations in Delhi-NCR. CJP said at ~4:45 PM it still has no information on Dipke, Das and Ranka's whereabouts and is concerned for their safety. No release reported as of 4:53 PM.",
       "src": [
         "https://www.indiatoday.in/india/story/abhijeet-dipke-cjp-leader-detained-from-air-india-aircraft-in-delhi-protest-jantar-mantar-3013896-2026-10-10",
         "https://www.tribuneindia.com/liveblog/delhi/delhi-cjp-protest-live-updates-cjps-jantar-mantar-2-0-today-amid-traffic-curbs/",
-        "https://x.com/ANI/status/2108874266699767817"
+        "https://x.com/ANI/status/2108874266699767817",
+        "https://x.com/Cockroachisback/status/2108878980745179220",
+        "https://x.com/thewire_in/status/2108878091200401870",
+        "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece"
       ]
     },
     {
@@ -68,8 +72,13 @@
       "when": "10 Oct, about 10:30 AM IST",
       "where": "Same flight, IGI Airport. Later moved to another location in Delhi (TOI)",
       "reason": "Same as Dipke",
-      "status": "Held",
-      "src": "https://timesofindia.indiatimes.com/city/delhi/over-1500-protestors-detained-across-delhi-cjp-leaders-shifted-to-different-locations/articleshow/134849162.cms"
+      "status": "Held. At 1:08 PM, intelligence sources told The Hindu that Dipke, Das and Ranka were taken to three different locations in Delhi-NCR. CJP said at ~4:45 PM it still has no information on their whereabouts and is concerned for their safety. No release reported as of 4:53 PM.",
+      "src": [
+        "https://timesofindia.indiatimes.com/city/delhi/over-1500-protestors-detained-across-delhi-cjp-leaders-shifted-to-different-locations/articleshow/134849162.cms",
+        "https://x.com/Cockroachisback/status/2108878980745179220",
+        "https://x.com/thewire_in/status/2108878091200401870",
+        "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece"
+      ]
     },
     {
       "name": "Ashutosh Ranka",
@@ -77,8 +86,13 @@
       "when": "10 Oct, about 10:30 AM IST",
       "where": "Same flight, IGI Airport. Later moved to Dwarka (TOI)",
       "reason": "Same as Dipke",
-      "status": "Held",
-      "src": "https://timesofindia.indiatimes.com/city/delhi/over-1500-protestors-detained-across-delhi-cjp-leaders-shifted-to-different-locations/articleshow/134849162.cms"
+      "status": "Held. At 1:08 PM, intelligence sources told The Hindu that Dipke, Das and Ranka were taken to three different locations in Delhi-NCR. CJP said at ~4:45 PM it still has no information on their whereabouts and is concerned for their safety. No release reported as of 4:53 PM.",
+      "src": [
+        "https://timesofindia.indiatimes.com/city/delhi/over-1500-protestors-detained-across-delhi-cjp-leaders-shifted-to-different-locations/articleshow/134849162.cms",
+        "https://x.com/Cockroachisback/status/2108878980745179220",
+        "https://x.com/thewire_in/status/2108878091200401870",
+        "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece"
+      ]
     },
     {
       "name": "Ratna Singh",
@@ -86,7 +100,7 @@
       "when": "10 Oct, morning (reported by about 9:15–10:26 AM IST)",
       "where": "Outside her home in Jangpura, Delhi. Kept inside a car",
       "reason": "She says police had only 'oral orders from above' and showed no notification",
-      "status": "Held (last report, about 8 hours by 3:20 PM per her lawyer). Her FIR plea is before Saket CMM Abhinav Pandey and was still pending as of 4:37 PM. LiveLaw says court staff said the judge was dictating an order in a different case.",
+      "status": "Held (last report, about 8 hours by 3:20 PM per her lawyer). Her FIR plea is before Saket CMM Abhinav Pandey and was still pending as of 4:53 PM. LiveLaw says court staff said the judge was dictating an order in a different case.",
       "src": [
         "https://x.com/barandbench/status/2108857920712806673",
         "https://x.com/LiveLawIndia/status/2108858096265371690"
@@ -155,11 +169,13 @@
       "when": "10 Oct, about 2:20 PM IST for Bora and Yadav. Bhushan and Bhattacharya reported ~4:23 PM IST (The Sentinel) and 4:31 PM IST (Deccan Herald); exact detention time not given.",
       "where": "Bora and Yadav: march from Dilli Haat towards Jantar Mantar. Bhushan and Bhattacharya: near INA Market, on the way to the CJP protest (The Sentinel). Dilli Haat is at INA.",
       "reason": "None reported",
-      "status": "Held at last report",
+      "status": "Held at last report. Held at Maidan Garhi detention centre. AISA alleges (4:09 PM) police illegally took the phones of Neha Bora and AISA activist Nirma, kept them in an isolated room and are not letting lawyers meet them.",
       "src": [
         "https://theprint.in/india/jantar-mantar-delhi-cjp-protest-live-updates/3066985/",
         "https://x.com/DeccanHerald/status/2108875449585766567",
-        "https://x.com/Sentinel_Assam/status/2108873463436034172"
+        "https://x.com/Sentinel_Assam/status/2108873463436034172",
+        "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece",
+        "https://x.com/thewire_in/status/2108878088872587356"
       ]
     },
     {
@@ -175,13 +191,18 @@
       ]
     },
     {
-      "name": "Journalists: Ayush Tiwari & Shoaib Daniyal (Scroll); Ashwine Kumar Singh, Astha Savyasachi, Anmol Pritam (Newslaundry)",
+      "name": "Journalists: Ayush Tiwari & Shoaib Daniyal (Scroll); Ashwine Kumar Singh, Astha Savyasachi, Anmol Pritam (Newslaundry); Divya Aslesha (Scroll)",
       "who": "Reporters covering the protest",
       "when": "10 Oct, about 11:30 AM–1:07 PM IST",
       "where": "Central Delhi (Tiwari near ITO)",
       "reason": "Newslaundry says police told them 'Koi media nahin hai' and took their work phones",
-      "status": "Unknown",
-      "src": "https://theprint.in/india/jantar-mantar-delhi-cjp-protest-live-updates/3066985/"
+      "status": "Mixed. Delhi journalists from NBT, Scroll and Newslaundry were released later (The Hindu, 3:18 PM). Divya Aslesha (Scroll) detained in Pune; held at last report.",
+      "src": [
+        "https://theprint.in/india/jantar-mantar-delhi-cjp-protest-live-updates/3066985/",
+        "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece",
+        "https://scroll.in/latest/1096305/cec-protest-mamata-banerjee-arvind-kejriwal-among-opposition-leaders-detained",
+        "https://x.com/thewire_in/status/2108878088872587356"
+      ]
     },
     {
       "name": "Group of Supreme Court lawyers (incl. senior & women advocates)",
@@ -337,7 +358,7 @@
     {
       "t": "10 Oct, ~3–3:20 PM",
       "importance": "very-important",
-      "e": "CPI(M) says former Tripura CM Manik Sarkar and CITU's Elamaram Kareem are held at Bawana stadium. At Saket court, LiveLaw says staff told reporters the magistrate was dictating an order in a different case; Ratna Singh's FIR plea was still pending as of 4:37 PM.",
+      "e": "CPI(M) says former Tripura CM Manik Sarkar and CITU's Elamaram Kareem are held at Bawana stadium. At Saket court, LiveLaw says staff told reporters the magistrate was dictating an order in a different case; Ratna Singh's FIR plea was still pending as of 4:53 PM.",
       "src": [
         "https://x.com/barandbench/status/2108857920712806673",
         "https://x.com/LiveLawIndia/status/2108858096265371690"
@@ -461,14 +482,106 @@
     {
       "t": "10 Oct, 4:28 PM",
       "importance": "important",
-      "e": "Scroll: a protester detained in Pune says 'We were dragged on the city streets. Multiple women have sustained bruises.' Unverified individual claim on social media; no detention count given.",
-      "src": "https://x.com/scroll_in/status/2108874809497284870"
+      "e": "Scroll: a protester detained in Pune says 'We were dragged on the city streets. Multiple women have sustained bruises.' Unverified individual claim on social media; no detention count given. Scroll also reports its journalist Divya Aslesha was detained in Pune.",
+      "src": [
+        "https://x.com/scroll_in/status/2108874809497284870",
+        "https://scroll.in/latest/1096305/cec-protest-mamata-banerjee-arvind-kejriwal-among-opposition-leaders-detained",
+        "https://x.com/thewire_in/status/2108878088872587356"
+      ]
     },
     {
       "t": "10 Oct, 4:30 PM",
       "importance": "routine",
       "e": "BJP MP Ravi Shankar Prasad: 'CJP is doing shadow boxing for the Aam Aadmi Party'; calls the opposition 'defeated, desperate individuals ... weaponizing street protests'; defends SIR as a legal provision conducted 'more than nine times'.",
       "src": "https://x.com/ANI/status/2108875251492987373"
+    },
+    {
+      "t": "10 Oct, 3:21 PM",
+      "importance": "important",
+      "e": "Bengaluru: at least 50 AISA students detained at Freedom Park (The Hindu, 3:21 PM).",
+      "src": "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece"
+    },
+    {
+      "t": "10 Oct, 4:09 PM",
+      "importance": "very-important",
+      "e": "AISA's claim: police illegally took the phones of Neha Bora (AISA president) and AISA activist Nirma at the Maidan Garhi detention centre, kept them in an isolated room, and are not letting lawyers meet them (The Hindu, 4:09 PM).",
+      "src": [
+        "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece",
+        "https://x.com/thewire_in/status/2108878088872587356"
+      ]
+    },
+    {
+      "t": "10 Oct, 4:31 PM",
+      "importance": "routine",
+      "e": "Priyanka Gandhi Vadra: 'India is not a democracy anymore. It is a dictatorship being run by Modi and Shah' (The Hindu).",
+      "src": "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece"
+    },
+    {
+      "t": "10 Oct, 4:34 PM",
+      "importance": "routine",
+      "e": "CJP, SFI and AISF representatives to address a press meet on 'Jantar Mantar 2.0' at HKS Surjeet Bhawan at 5 PM (The Hindu, 4:34 PM).",
+      "src": "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece"
+    },
+    {
+      "t": "10 Oct, 4:38 PM",
+      "importance": "routine",
+      "e": "Yogendra Yadav, in a video shared by The Wire (recorded earlier): 'Protesters succeeded in setting up Jantar Mantar 2.0 at several sites in Delhi.' The video does not indicate that he has been released.",
+      "src": "https://x.com/thewire_in/status/2108877224883712013"
+    },
+    {
+      "t": "10 Oct, 4:41 PM",
+      "importance": "routine",
+      "e": "NDTV: BJP attacks Congress and CJP — 'India Is Not A Banana Republic'.",
+      "src": "https://x.com/ndtv/status/2108878080194572607"
+    },
+    {
+      "t": "10 Oct, 4:43 PM",
+      "importance": "important",
+      "e": "Mumbai: police clash with protesters near August Kranti Marg; protesters detained at August Kranti Maidan (The Hindu). No detention count given.",
+      "src": [
+        "https://x.com/the_hindu/status/2108878703723937804",
+        "https://x.com/the_hindu/status/2108879101666971661"
+      ]
+    },
+    {
+      "t": "10 Oct, 4:45 PM",
+      "importance": "important",
+      "e": "Scroll: nearly 5,000 protesters detained in Delhi, citing The Hindu.",
+      "src": "https://x.com/scroll_in/status/2108878962277470264"
+    },
+    {
+      "t": "10 Oct, 4:45 PM",
+      "importance": "important",
+      "e": "Sonam Wangchuk says India is in 'a state of undeclared emergency' and he will be compelled to consider an anshan (fast) or padyatra if detained protesters are not released by tomorrow (The Hindu).",
+      "src": "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece"
+    },
+    {
+      "t": "10 Oct, ~4:45 PM",
+      "importance": "very-important",
+      "e": "CJP says it still has no information on Abhijeet Dipke, Saurav Das and Ashutosh Ranka's whereabouts and is concerned for their safety. At 1:08 PM, intelligence sources told The Hindu the three were taken to three different locations in Delhi-NCR. No release reported.",
+      "src": [
+        "https://x.com/Cockroachisback/status/2108878980745179220",
+        "https://x.com/thewire_in/status/2108878091200401870",
+        "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece"
+      ]
+    },
+    {
+      "t": "10 Oct, 4:46 PM",
+      "importance": "routine",
+      "e": "Indian Youth Congress launches a legal helpline (9582223884) for people detained or threatened over the protests (PTI via Tribune).",
+      "src": "https://www.tribuneindia.com/liveblog/delhi/delhi-cjp-protest-live-updates-cjps-jantar-mantar-2-0-today-amid-traffic-curbs/"
+    },
+    {
+      "t": "10 Oct, 4:46 PM",
+      "importance": "important",
+      "e": "Hindustan Times: INDIA bloc to hold a mega protest in Delhi on Monday 12 Oct. Mamata Banerjee cancelled her return to Kolkata to join; Abhishek Banerjee will travel back to Delhi for it. This confirms the earlier Deccan Herald reporter post.",
+      "src": "https://www.hindustantimes.com/india-news/india-bloc-to-hold-mega-protest-in-delhi-on-october-12-tmc-says-mamata-banerjee-to-join-101791630608197.html"
+    },
+    {
+      "t": "10 Oct, 4:49 PM",
+      "importance": "important",
+      "e": "The Hindu: a group of individuals threatened, chased and assaulted some protesters in Connaught Place. Perpetrators not identified.",
+      "src": "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece"
     }
   ],
   "joined": [
@@ -510,7 +623,7 @@
     },
     {
       "name": "Sonam Wangchuk",
-      "role": "Sent good wishes and urged peace; not attending"
+      "role": "Sent good wishes and urged peace; not attending. 4:45 PM: says he may go on a fast (anshan) or padyatra if detainees are not freed by 11 Oct (The Hindu)."
     },
     {
       "name": "Manish Sisodia, Harpal Singh Cheema",
@@ -530,7 +643,11 @@
     },
     {
       "name": "INDIA bloc (Mamata Banerjee, Abhishek Banerjee)",
-      "role": "Planned march to the Supreme Court on Monday 12 Oct, per a Deccan Herald reporter's X post (not yet in a published article)"
+      "role": "Planned march to the Supreme Court on Monday 12 Oct, per a Deccan Herald reporter's X post. Hindustan Times confirms an INDIA bloc mega protest in Delhi on Monday 12 Oct; Mamata Banerjee cancelled her return to Kolkata to join, and Abhishek Banerjee will travel back to Delhi for it."
+    },
+    {
+      "name": "Indian Youth Congress",
+      "role": "Launched a legal helpline (9582223884) for people detained or threatened over the protests (PTI via Tribune, 4:46 PM)."
     }
   ],
   "allegations": [
@@ -628,6 +745,37 @@
       "claim": "Protesters 'were dragged on the city streets. Multiple women have sustained bruises.' Unverified individual claim.",
       "by": "A protester detained in Pune, via Scroll",
       "src": "https://x.com/scroll_in/status/2108874809497284870"
+    },
+    {
+      "claim": "Police illegally took the phones of Neha Bora and AISA activist Nirma at the Maidan Garhi detention centre, kept them in an isolated room, and are not letting lawyers meet them.",
+      "by": "AISA (The Hindu, 4:09 PM)",
+      "src": [
+        "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece",
+        "https://x.com/thewire_in/status/2108878088872587356"
+      ]
+    },
+    {
+      "claim": "No information on the whereabouts of Dipke, Das and Ranka since they were detained from the plane; 'stunned by the heartless Delhi Police'.",
+      "by": "CJP",
+      "src": [
+        "https://x.com/Cockroachisback/status/2108878980745179220",
+        "https://x.com/thewire_in/status/2108878091200401870"
+      ]
+    },
+    {
+      "claim": "A group of individuals threatened, chased and assaulted some protesters in Connaught Place. Perpetrators not identified.",
+      "by": "The Hindu (4:49 PM)",
+      "src": "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece"
+    },
+    {
+      "claim": "India is in 'a state of undeclared emergency'.",
+      "by": "Sonam Wangchuk (The Hindu, 4:45 PM)",
+      "src": "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece"
+    },
+    {
+      "claim": "India is not a democracy anymore. It is a dictatorship being run by Modi and Shah.",
+      "by": "Priyanka Gandhi Vadra (The Hindu, 4:31 PM)",
+      "src": "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece"
     }
   ],
   "govt_position": [
@@ -662,6 +810,14 @@
     {
       "point": "Tribune live blog (updated 4:27 PM): about 35,000 Delhi Police and paramilitary personnel deployed; police using drones to monitor movement",
       "src": "https://www.tribuneindia.com/liveblog/delhi/delhi-cjp-protest-live-updates-cjps-jantar-mantar-2-0-today-amid-traffic-curbs/"
+    },
+    {
+      "point": "BJP: 'India is not a banana republic' (NDTV, attacking Congress and CJP).",
+      "src": "https://x.com/ndtv/status/2108878080194572607"
+    },
+    {
+      "point": "Uttarakhand CM Pushkar Dhami says voter-roll revision is not new.",
+      "src": "https://x.com/htTweets/status/2108878136368878049"
     }
   ],
   "legal_context": [
@@ -698,13 +854,13 @@
     {
       "date": "10 Oct",
       "court": "Saket District Court",
-      "action": "Ratna Singh's urgent application under BNSS 175(3)/174, before CMM Abhinav Pandey, seeks an FIR and a status report on her 'wrongful confinement'. LiveLaw reports that at about 3:20 PM court staff said the judge was dictating an order in a different case and would take about half an hour more to sit. No order on her plea was reported as of 4:37 PM IST.",
+      "action": "Ratna Singh's urgent application under BNSS 175(3)/174, before CMM Abhinav Pandey, seeks an FIR and a status report on her 'wrongful confinement'. LiveLaw reports that at about 3:20 PM court staff said the judge was dictating an order in a different case and would take about half an hour more to sit. No order on her plea was reported as of 4:53 PM IST.",
       "src": "https://x.com/LiveLawIndia/status/2108858096265371690"
     }
   ],
   "caveats": [
     "Detention counts differ a lot by source and time. Official police figures are lower than media and CJP figures. CJP's 10,000+ is unverified.",
-    "Most detentions are preventive, not formal arrests. Release status of key figures was not reported as of about 4:37 PM IST; check again later.",
+    "Most detentions are preventive, not formal arrests. Release status of key figures was not reported as of about 4:53 PM IST; check again later.",
     "Times marked '~' are approximate and come from live-blog timestamps or post times converted to IST.",
     "Dhruv Rathee's housing society is named differently by different outlets."
   ],
@@ -740,6 +896,18 @@
     "https://x.com/ndtv/status/2108873405265330445",
     "https://x.com/ANI/status/2108874266699767817",
     "https://x.com/scroll_in/status/2108874809497284870",
-    "https://x.com/ANI/status/2108875251492987373"
+    "https://x.com/ANI/status/2108875251492987373",
+    "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece",
+    "https://scroll.in/latest/1096305/cec-protest-mamata-banerjee-arvind-kejriwal-among-opposition-leaders-detained",
+    "https://x.com/scroll_in/status/2108878962277470264",
+    "https://x.com/Cockroachisback/status/2108878980745179220",
+    "https://x.com/thewire_in/status/2108878091200401870",
+    "https://x.com/thewire_in/status/2108878088872587356",
+    "https://www.hindustantimes.com/india-news/india-bloc-to-hold-mega-protest-in-delhi-on-october-12-tmc-says-mamata-banerjee-to-join-101791630608197.html",
+    "https://x.com/the_hindu/status/2108878703723937804",
+    "https://x.com/the_hindu/status/2108879101666971661",
+    "https://x.com/ndtv/status/2108878080194572607",
+    "https://x.com/thewire_in/status/2108877224883712013",
+    "https://x.com/htTweets/status/2108878136368878049"
   ]
 }
