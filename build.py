@@ -45,6 +45,7 @@ share_x = 'https://twitter.com/intent/tweet?' + urlencode({'text': share_text, '
 share_whatsapp = 'https://wa.me/?' + urlencode({'text': share_text + '\n' + SITE_URL})
 share_facebook = 'https://www.facebook.com/sharer/sharer.php?' + urlencode({'u': SITE_URL})
 
+# LIVE_JS (below) must emit the same markup as these helpers.
 def links(value):
     if not value:
         return ''
@@ -311,6 +312,240 @@ footer code{font-size:.7rem;color:var(--ink)}
 }
 '''
 
+LIVE_JS = r'''
+function esc(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
+}
+
+function hostOf(u) {
+  var m = /^[a-z][a-z0-9+.-]*:\/\/([^/?#]*)/i.exec(String(u));
+  var netloc = m ? m[1] : "";
+  var at = netloc.lastIndexOf("@");
+  if (at !== -1) netloc = netloc.slice(at + 1);
+  return netloc.replace(/www\./g, "");
+}
+
+function links(value) {
+  if (value == null || value === "") return "";
+  var urls = Array.isArray(value) ? value : [value];
+  if (!urls.length) return "";
+  var out = "";
+  for (var i = 0; i < urls.length; i++) {
+    var u = urls[i];
+    out += '<a class="src" href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(hostOf(u)) + "</a>";
+  }
+  return out;
+}
+
+function importance(item) {
+  var level = String((item && item.importance) || "routine").toLowerCase();
+  if (level === "very-important" || level === "breaking" || level === "important" || level === "routine") return level;
+  return "routine";
+}
+
+function clockMinutes(text) {
+  var re = /(\d{1,2})(?::(\d{2}))?\s*(a\.?m\.?|p\.?m\.?)|\bnoon\b/gi;
+  var found = [];
+  var m;
+  while ((m = re.exec(text)) !== null) {
+    if (m[0].toLowerCase() === "noon") {
+      found.push(12 * 60);
+      continue;
+    }
+    var hh = parseInt(m[1], 10);
+    var mm = parseInt(m[2] || "0", 10);
+    var ap = m[3].toLowerCase().replace(/\./g, "");
+    if (ap === "pm" && hh !== 12) hh += 12;
+    if (ap === "am" && hh === 12) hh = 0;
+    found.push(hh * 60 + mm);
+  }
+  return found.length ? Math.max.apply(null, found) : -1;
+}
+
+function orderedTimeline(items) {
+  var rows = [];
+  for (var idx = 0; idx < items.length; idx++) rows.push({ item: items[idx], idx: idx });
+  rows.sort(function (a, b) {
+    function key(x) {
+      var dayM = /(\d+)\s*Oct/i.exec(x.item.t || "");
+      var day = dayM ? parseInt(dayM[1], 10) : 0;
+      return [day, clockMinutes(x.item.t || ""), x.idx];
+    }
+    var ka = key(a);
+    var kb = key(b);
+    for (var i = 0; i < 3; i++) if (ka[i] !== kb[i]) return kb[i] - ka[i];
+    return 0;
+  });
+  var ordered = [];
+  for (var j = 0; j < rows.length; j++) ordered.push(rows[j].item);
+  return ordered;
+}
+
+function statusChip(status) {
+  var low = String(status).toLowerCase();
+  var kind = "unk";
+  var label = "Unknown";
+  if (low.indexOf("released") === 0) {
+    kind = "rel";
+    label = "Released";
+  } else if (low.indexOf("held") === 0) {
+    kind = "held";
+    label = "Detained";
+  }
+  return '<span class="chip ' + kind + '">' + label + "</span>";
+}
+
+function badge(level) {
+  var labels = { "very-important": "Very important", breaking: "Breaking", important: "Important" };
+  if (!Object.prototype.hasOwnProperty.call(labels, level)) return "";
+  return '<span class="badge ' + level + '">' + labels[level] + "</span>";
+}
+
+var VIP_NAMES = [
+  "dhruv rathee", "abhijeet dipke", "saurav das", "ashutosh ranka", "ratna singh",
+  "neha bora", "yogendra yadav", "mamata banerjee", "arvind kejriwal", "manish sisodia",
+  "pinarayi vijayan", "john brittas",
+  "k.n. balagopal", "m.a. baby", "brinda karat", "manik sarkar", "jitendra chaudhury",
+  "elamaram kareem"
+];
+
+function isVip(name) {
+  var low = String(name).toLowerCase();
+  for (var i = 0; i < VIP_NAMES.length; i++) if (low.indexOf(VIP_NAMES[i]) !== -1) return true;
+  return false;
+}
+
+function feedItem(item, pinned) {
+  var level = importance(item);
+  var cls = pinned ? "pin" : "item";
+  return '<article class="' + cls + " " + level + '">'
+    + '<div class="meta">' + badge(level) + "<time>" + esc(item.t) + '</time><span class="tz">IST</span></div>'
+    + "<p>" + esc(item.e) + "</p>"
+    + '<div class="srcs">' + links(item.src) + "</div>"
+    + "</article>";
+}
+
+function renderParts(d) {
+  if (!d || !d.timeline || !d.detainees) throw new Error("incomplete data");
+  var ordered = orderedTimeline(d.timeline);
+  var top = [];
+  for (var i = 0; i < ordered.length; i++) if (importance(ordered[i]) === "very-important") top.push(ordered[i]);
+  var stats = "";
+  for (var s = 0; s < d.stats.length; s++) {
+    var st = d.stats[s];
+    stats += '<article class="stat"><p class="v">' + esc(st.value) + "</p><h3>" + esc(st.label) + "</h3><p>" + esc(st.note) + " " + links(st.src) + "</p></article>";
+  }
+  var pins = "";
+  for (var p = 0; p < top.length; p++) pins += feedItem(top[p], true);
+  var feed = "";
+  for (var f = 0; f < ordered.length; f++) feed += feedItem(ordered[f], false);
+  var people = "";
+  for (var n = 0; n < d.detainees.length; n++) {
+    var x = d.detainees[n];
+    var vip = isVip(x.name);
+    people += '<article class="person' + (vip ? " very-important" : "") + '"><div class="person-main"><div class="person-id"><h3>' + esc(x.name) + '</h3><span class="chips">' + (vip ? badge("very-important") : "") + statusChip(x.status) + "</span></div>"
+      + '<p class="who">' + esc(x.who) + "</p>"
+      + '<p class="where"><span>Time</span> ' + esc(x.when) + "</p>"
+      + '<p class="where"><span>Place</span> ' + esc(x.where) + "</p>"
+      + '<p class="detail">' + esc(x.status) + "</p>"
+      + '<p class="reason">' + esc(x.reason) + "</p>"
+      + '<div class="srcs">' + links(x.src) + "</div></div></article>";
+  }
+  var joined = "";
+  for (var j = 0; j < d.joined.length; j++) joined += "<li><b>" + esc(d.joined[j].name) + "</b> — " + esc(d.joined[j].role) + "</li>";
+  var allegations = "";
+  for (var a = 0; a < d.allegations.length; a++) {
+    var al = d.allegations[a];
+    allegations += "<li>" + esc(al.claim) + ' <span class="by">Alleged by: ' + esc(al.by) + "</span> " + links(al.src) + "</li>";
+  }
+  var govt = "";
+  for (var g = 0; g < d.govt_position.length; g++) govt += "<li>" + esc(d.govt_position[g].point) + " " + links(d.govt_position[g].src) + "</li>";
+  var legal = "";
+  for (var l = 0; l < d.legal_context.length; l++) legal += "<li>" + esc(d.legal_context[l]) + "</li>";
+  var courts = "";
+  for (var c = 0; c < d.courts.length; c++) {
+    var ct = d.courts[c];
+    courts += '<article class="court"><p class="cd">' + esc(ct.date) + " · " + esc(ct.court) + "</p><p>" + esc(ct.action) + " " + links(ct.src) + "</p></article>";
+  }
+  var caveats = "";
+  for (var k = 0; k < d.caveats.length; k++) caveats += "<li>" + esc(d.caveats[k]) + "</li>";
+  var sources = "";
+  for (var u = 0; u < d.sources.length; u++) sources += '<li><a href="' + esc(d.sources[u]) + '" target="_blank" rel="noopener">' + esc(d.sources[u]) + "</a></li>";
+  return {
+    title: String(d.title),
+    titleHtml: esc(d.title),
+    updatedHtml: esc(d.last_updated_ist),
+    stats: stats,
+    pins: pins,
+    feed: feed,
+    lede: esc(d.summary),
+    people: people,
+    joined: joined,
+    courts: courts,
+    allegations: allegations,
+    govt: govt,
+    legal: legal,
+    caveats: caveats,
+    sources: sources
+  };
+}
+globalThis.renderParts = renderParts;
+
+function applyRendered(p) {
+  var h1 = document.querySelector("header h1");
+  var time = document.querySelector(".updated time");
+  var map = {
+    stats: p.stats,
+    pins: p.pins,
+    feed: p.feed,
+    lede: p.lede,
+    people: p.people,
+    "joined-list": p.joined,
+    "allegations-list": p.allegations,
+    "govt-list": p.govt,
+    "legal-list": p.legal,
+    "caveats-list": p.caveats,
+    "source-list": p.sources
+  };
+  if (!h1 || !time || !document.getElementById("courts-col")) return;
+  var key;
+  for (key in map) if (!Object.prototype.hasOwnProperty.call(map, key) || !document.getElementById(key)) return;
+  document.title = p.title;
+  h1.innerHTML = p.titleHtml;
+  time.innerHTML = p.updatedHtml;
+  for (key in map) if (Object.prototype.hasOwnProperty.call(map, key)) document.getElementById(key).innerHTML = map[key];
+  var col = document.getElementById("courts-col");
+  var heading = document.getElementById("courts");
+  col.innerHTML = "";
+  col.appendChild(heading);
+  col.insertAdjacentHTML("beforeend", p.courts);
+  document.documentElement.setAttribute("data-live", "1");
+}
+
+function loadLiveData() {
+  var url = "https://raw.githubusercontent.com/skshoyeb/jantarmantar/main/data.json?t=" + Date.now();
+  fetch(url, { cache: "no-store" })
+    .then(function (res) {
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return res.json();
+    })
+    .then(function (data) {
+      applyRendered(renderParts(data));
+    })
+    .catch(function () {});
+}
+
+if (typeof document !== "undefined" && document.getElementById && document.getElementById("stats")) {
+  loadLiveData();
+  setInterval(loadLiveData, 5 * 60 * 1000);
+}
+'''
+
 page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(d["title"])}</title>
 <meta name="description" content="{e(DESCRIPTION)}">
@@ -347,26 +582,26 @@ page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name
 <main class="wrap">
 <div class="disclaimer"><strong>Disclaimer:</strong> This data is auto-generated by a Grok bot. The bot compiled this dashboard while publishing the site, from news reports, official statements, and labelled social-media posts. It is not an official record and has not been checked by a human editor. Names, counts, times, and detention status can be incomplete or wrong. Check the linked sources before relying on it.</div>
 <h2 id="at-a-glance">At a glance</h2>
-<div class="stats">{stats}</div>
+<div class="stats" id="stats">{stats}</div>
 <h2 id="highlights">Very important</h2>
 <p class="section-note">Key leader detentions, pinned newest first. Each one is also in the feed below.</p>
-<div class="top">{pins}</div>
+<div class="top" id="pins">{pins}</div>
 <h2 id="live-updates">Live updates</h2>
 <p class="section-note">Newest first. Times are IST.</p>
-<div class="feed">{feed}</div>
+<div class="feed" id="feed">{feed}</div>
 <h2 id="background">Background</h2>
-<p class="lede">{e(d["summary"])}</p>
+<p class="lede" id="lede">{e(d["summary"])}</p>
 <h2 id="detainees">Key people detained</h2>
 <p class="section-note">Status chip, then the recorded time and place.</p>
-<div class="people">{people}</div>
-<div class="two"><div><h2 id="supporters">Notable people who joined / backed it</h2><div class="box"><ul>{joined}</ul></div></div>
-<div><h2 id="courts">Court updates</h2>{courts}</div></div>
+<div class="people" id="people">{people}</div>
+<div class="two"><div><h2 id="supporters">Notable people who joined / backed it</h2><div class="box"><ul id="joined-list">{joined}</ul></div></div>
+<div id="courts-col"><h2 id="courts">Court updates</h2>{courts}</div></div>
 <h2 id="allegations">Alleged govt failures &amp; rules broken <small>(these are allegations, not findings)</small></h2>
-<div class="box"><ul>{allegations}</ul></div>
-<div class="two"><div><h2 id="government">Government / police position</h2><div class="box"><ul>{govt}</ul></div></div>
-<div><h2 id="legal-context">Legal context (reference)</h2><div class="box"><ul>{legal}</ul></div></div></div>
-<h2 id="caveats">Caveats</h2><div class="box"><ul>{caveats}</ul></div>
-<h2 id="sources">Sources</h2><div class="box"><ul class="sources">{sources}</ul></div>
+<div class="box"><ul id="allegations-list">{allegations}</ul></div>
+<div class="two"><div><h2 id="government">Government / police position</h2><div class="box"><ul id="govt-list">{govt}</ul></div></div>
+<div><h2 id="legal-context">Legal context (reference)</h2><div class="box"><ul id="legal-list">{legal}</ul></div></div></div>
+<h2 id="caveats">Caveats</h2><div class="box"><ul id="caveats-list">{caveats}</ul></div>
+<h2 id="sources">Sources</h2><div class="box"><ul class="sources" id="source-list">{sources}</ul></div>
 <section class="share-panel" aria-labelledby="share-heading">
 <h2 id="share-heading">Share this dashboard</h2>
 <p class="section-note">Bot-compiled updates. Please verify reports with the linked sources.</p>
@@ -379,7 +614,7 @@ page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name
 <input class="share-url" id="share-url" type="url" value="{e(SITE_URL)}" readonly aria-label="Dashboard link to copy">
 <p class="share-status" id="share-status" role="status" aria-live="polite"></p>
 </section>
-<footer>Auto-generated by a Grok bot from mainstream media, official statements and labelled social-media posts. Not an official record. To refresh: edit data.json, then run <code>python3 build.py</code>.</footer>
+<footer>Auto-generated by a Grok bot from mainstream media, official statements and labelled social-media posts. Not an official record. To refresh the live page, edit <code>data.json</code> on main.</footer>
 </main><a class="back-top" href="#page-top" aria-label="Back to top of page">Back to top</a>
 <script>
 const copyButton = document.getElementById('copy-link');
@@ -398,6 +633,9 @@ copyButton.addEventListener('click', async () => {{
     shareStatus.textContent = 'Select and copy the link below.';
   }}
 }});
+</script>
+<script id="live-data">
+{LIVE_JS}
 </script></body></html>'''
 
 open(os.path.join(ROOT, 'index.html'), 'w').write(page)

@@ -2,9 +2,15 @@
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # Design and code pushes deploy. A push that only touches data.json or notes
+  # does not: the live page fetches data.json from raw.githubusercontent.com.
   push:
     branches: ["main"]
+    paths-ignore:
+      - "data.json"
+      - "notes*"
+      - "notes/**"
+      - "**/notes*"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
