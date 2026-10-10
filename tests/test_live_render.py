@@ -88,6 +88,15 @@ def dom_signature(fragment):
 
 
 class LiveRenderTests(unittest.TestCase):
+    def test_unicode_update_sharing_matches_static_and_live(self):
+        data = json.loads((ROOT / 'data.json').read_text())
+        data['timeline'][0]['e'] = 'Quotes " & apostrophes\' emoji 🌏 हिन्दी ' + 'a' * 220
+        data['timeline'][0]['src'] = ['https://example.com/a?x=1&y=2', 'https://www.thehindu.com/news/example']
+        page, parts = self.build(data)
+        self.assert_region('feed', inner_html(page, 'feed'), parts['feed'])
+        self.assertIn('aria-label="Sources"', parts['feed'])
+        self.assertIn('2 · The Hindu', parts['feed'])
+
     def build(self, data):
         with tempfile.TemporaryDirectory() as tmp:
             tmp = Path(tmp)
@@ -130,11 +139,14 @@ class LiveRenderTests(unittest.TestCase):
         h1 = re.search(r'<h1>(.*?)</h1>', page).group(1)
         updated = re.search(r'<p class="updated">Last updated <time>(.*?)</time>', page).group(1)
         self.assert_region('title', h1, parts['titleHtml'])
+        subtitle = re.search(r'<p class="subtitle">(.*?)</p>', page).group(1)
+        self.assert_region('subtitle', subtitle, parts['subtitleHtml'])
         self.assert_region('updated', updated, parts['updatedHtml'])
         self.assertEqual(parts['title'], data['title'])
 
         regions = {
             'stats': 'stats',
+            'pictures': 'pictures',
             'pins': 'pins',
             'feed': 'feed',
             'lede': 'lede',
@@ -148,9 +160,8 @@ class LiveRenderTests(unittest.TestCase):
         }
         static = {name: inner_html(page, element_id) for name, element_id in regions.items()}
         courts = inner_html(page, 'courts-col')
-        prefix = '<h2 id="courts">Court updates</h2>'
-        self.assertTrue(courts.startswith(prefix), courts[:80])
-        static['courts'] = courts[len(prefix):]
+        self.assertIn('<h2 id="courts">Court updates</h2>', page)
+        static['courts'] = courts
         for name in list(regions) + ['courts']:
             self.assert_region(name, static[name], parts[name])
 
@@ -208,6 +219,13 @@ class LiveRenderTests(unittest.TestCase):
             self.assertIn('loading="lazy"', static['feed'])
             self.assertIn('object-fit:cover', page)
             self.assertIn("onerror=\"this.closest('figure').hidden=true\"", static['feed'])
+        expected_images = {
+            row['image']['url'] for row in data['timeline'] + data['detainees']
+            if isinstance(row.get('image'), dict) and row['image'].get('url')
+        }
+        self.assertEqual(static['pictures'].count('<article class="photo-card">'), len(expected_images))
+        for url in expected_images:
+            self.assertEqual(static['pictures'].count('src="' + html.escape(url) + '"'), 1)
 
 
 NODE = r'''

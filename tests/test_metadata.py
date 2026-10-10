@@ -101,7 +101,8 @@ class MetadataTests(unittest.TestCase):
         self.assertEqual(graph[1]['name'], data['title'])
         self.assertEqual(p.meta['og:title'], data['title'])
         self.assertNotIn('</script><script>alert(1)</script>', result)
-        params = parse_qs(urlparse(p.sharing[0]).query)
+        params = next(parse_qs(urlparse(url).query) for url in p.sharing
+                      if parse_qs(urlparse(url).query).get('url') == [SITE])
         self.assertEqual(params['url'], [SITE])
         self.assertTrue(params['text'][0].startswith(data['title']))
 

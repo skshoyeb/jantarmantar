@@ -7,6 +7,12 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 d = json.load(open(os.path.join(ROOT, 'data.json')))
 e = lambda s: html.escape(str(s))
 
+def header_parts(title):
+    parts = re.split(r'\s+[—–]\s+', str(title), maxsplit=1)
+    return parts[0], parts[1] if len(parts) > 1 else ''
+
+header_title, header_subtitle = header_parts(d['title'])
+
 SITE_URL = 'https://jantarmantar.sholock.com/'
 SITE_NAME = 'Jantar Mantar Updates'
 DESCRIPTION = (
@@ -45,14 +51,56 @@ share_x = 'https://twitter.com/intent/tweet?' + urlencode({'text': share_text, '
 share_whatsapp = 'https://wa.me/?' + urlencode({'text': share_text + '\n' + SITE_URL})
 share_facebook = 'https://www.facebook.com/sharer/sharer.php?' + urlencode({'u': SITE_URL})
 
+SOURCE_LABELS = {
+    'barandbench.com': 'Bar & Bench', 'businesstoday.in': 'Business Today',
+    'geo.tv': 'Geo News', 'hindustantimes.com': 'Hindustan Times',
+    'indianexpress.com': 'Indian Express', 'indiatoday.in': 'India Today',
+    'livelaw.in': 'LiveLaw', 'm.thewire.in': 'The Wire', 'thewire.in': 'The Wire',
+    'ndtv.com': 'NDTV', 'npr.org': 'NPR', 'scobserver.in': 'Supreme Court Observer',
+    'scroll.in': 'Scroll', 'thehindu.com': 'The Hindu', 'theprint.in': 'ThePrint',
+    'timesofindia.indiatimes.com': 'Times of India', 'tribuneindia.com': 'The Tribune',
+    'x.com': 'X', 'twitter.com': 'X',
+}
+
+def source_label(url):
+    host = urlparse(url).netloc.removeprefix('www.')
+    return SOURCE_LABELS.get(host, host)
+
 # LIVE_JS (below) must emit the same markup as these helpers.
 def links(value):
     if not value:
         return ''
     urls = value if isinstance(value, list) else [value]
-    return ''.join(
-        f'<a class="src" href="{e(u)}" target="_blank" rel="noopener">{e(urlparse(u).netloc.replace("www.", ""))}</a>'
-        for u in urls
+    return '<span class="source-links" aria-label="Sources">' + ''.join(
+        f'<a class="src" href="{e(u)}" target="_blank" rel="noopener" aria-label="Read source {i + 1}: {e(source_label(u))} (opens a new tab)">{i + 1} · {e(source_label(u))}</a>'
+        for i, u in enumerate(urls)
+    ) + '</span>'
+
+def update_id(item):
+    # Content-based IDs survive inserted updates and feed reordering.
+    value = 2166136261
+    for char in item['t'] + '\n' + item['e']:
+        value = ((value ^ ord(char)) * 16777619) & 0xffffffff
+    return f'update-{value:08x}'
+
+def card_sharing(item):
+    url = SITE_URL + '#' + update_id(item)
+    event = item['e']
+    excerpt = event if len(event) <= 180 else event[:179] + '…'
+    short = f'Jantar Mantar update · {item["t"]} IST\n\n{excerpt}\n\nBot-compiled; verify sources.'
+    full = f'Jantar Mantar update · {item["t"]} IST\n\n{event}\n\nBot-compiled; verify linked sources.\n{url}'
+    x_url = 'https://twitter.com/intent/tweet?' + urlencode({'text': short, 'url': url})
+    whatsapp_url = 'https://wa.me/?' + urlencode({'text': full})
+    facebook_url = 'https://www.facebook.com/sharer/sharer.php?' + urlencode({'u': url})
+    return (
+        '<details class="card-share"><summary>Share update</summary><div class="card-share-options">'
+        f'<a href="{e(x_url)}" target="_blank" rel="noopener noreferrer" aria-label="Share this update on X (opens a new tab)">X</a>'
+        f'<a href="{e(whatsapp_url)}" target="_blank" rel="noopener noreferrer" aria-label="Share this update on WhatsApp (opens a new tab)">WhatsApp</a>'
+        f'<a href="{e(facebook_url)}" target="_blank" rel="noopener noreferrer" aria-label="Share this update on Facebook (opens a new tab)">Facebook</a>'
+        f'<a class="update-permalink" href="{e(url)}">Link to update</a>'
+        f'<button type="button" class="copy-update" data-url="{e(url)}" hidden>Copy link</button>'
+        f'</div><input class="share-url card-share-url" value="{e(url)}" readonly aria-label="Update link to copy" hidden>'
+        '<span class="card-share-status" role="status" aria-live="polite"></span></details>'
     )
 
 def importance(item):
@@ -136,17 +184,18 @@ def feed_item(item, pinned=False):
     cls = 'pin' if pinned else 'item'
     shot = figure(item.get('image'), 'hero' if pinned else 'thumb')
     return (
-        f'<article class="{cls} {level}">'
+        f'<article class="{cls} {level}" id="{"pin-" if pinned else ""}{update_id(item)}">'
         f'{shot if pinned else ""}'
         f'<div class="meta">{badge(level)}<time>{e(item["t"])}</time><span class="tz">IST</span></div>'
         f'<p>{e(item["e"])}</p>'
         f'{"" if pinned else shot}'
         f'<div class="srcs">{links(item.get("src"))}</div>'
+        f'{card_sharing(item)}'
         f'</article>'
     )
 
 stats = ''.join(
-    f'<article class="stat"><p class="v">{e(s["value"])}</p><h3>{e(s["label"])}</h3><p>{e(s["note"])} {links(s["src"])}</p></article>'
+    f'<article class="stat"><p class="v">{e(s["value"])}</p><h3>{e(s["label"])}</h3><details class="stat-note"><summary>Context &amp; sources</summary><p>{e(s["note"])} {links(s["src"])}</p></details></article>'
     for s in d['stats']
 )
 feed = ''.join(feed_item(item) for item in ordered)
@@ -175,7 +224,20 @@ courts = ''.join(
     for x in d['courts']
 )
 caveats = ''.join(f'<li>{e(x)}</li>' for x in d['caveats'])
-sources = ''.join(f'<li><a href="{e(u)}" target="_blank" rel="noopener">{e(u)}</a></li>' for u in d['sources'])
+sources = ''.join(f'<li><a href="{e(u)}" target="_blank" rel="noopener"><span class="source-publisher">{e(source_label(u))}</span><span class="source-address">{e(u)}</span></a></li>' for u in d['sources'])
+
+def picture_cards(rows):
+    seen, cards = set(), []
+    for row in rows:
+        image = row.get('image')
+        if not isinstance(image, dict) or not image.get('url') or image['url'] in seen:
+            continue
+        seen.add(image['url'])
+        report = links(image.get('source_url'))
+        cards.append(f'<article class="photo-card">{figure(image, "hero")}<p class="photo-caption">{e(image.get("alt") or "Source preview")}</p><div class="srcs">{report}</div></article>')
+    return ''.join(cards)
+
+pictures = picture_cards(ordered + d['detainees'])
 
 CSS = r'''
 :root{
@@ -203,13 +265,17 @@ a{color:var(--link);text-underline-offset:4px;text-decoration-thickness:1px}
 a:hover{color:var(--link-hover)}
 a:focus-visible{outline:2px solid var(--accent);outline-offset:5px;border-radius:2px}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.bar{position:sticky;top:0;z-index:30;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px 20px;padding:22px max(28px,calc((100vw - 1184px)/2));background:var(--header);border-top:4px solid var(--accent);border-bottom:1px solid var(--line)}
-.live{display:inline-flex;align-items:center;gap:8px;align-self:start;margin-top:8px;padding:4px 9px;border:1px solid var(--line);border-radius:4px;color:var(--accent);font-size:.65rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase}
+.bar{position:sticky;top:0;z-index:30;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px 20px;padding:22px max(28px,calc((100vw - 1184px)/2));background:var(--header);border-top:4px solid var(--accent);border-bottom:1px solid var(--line)}
+.brand{grid-column:1;min-width:0}
+.subtitle{margin:7px 0 0;color:var(--muted);font-size:.85rem;line-height:1.5;letter-spacing:.02em}
+.subtitle:empty{display:none}
+.status-row{grid-column:1;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.live{display:inline-flex;align-items:center;gap:7px;padding:3px 8px;border:1px solid var(--line);border-radius:4px;color:var(--accent);font-size:.6rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
 .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
-h1{grid-column:2;margin:0;max-width:850px;font:500 clamp(1.3rem,2.2vw,1.85rem)/1.2 Georgia,"Times New Roman",serif;letter-spacing:-.035em;text-wrap:balance}
-.updated{grid-column:2;margin:0;color:var(--muted);font-size:.7rem;letter-spacing:.02em}
+h1{margin:0;font:500 clamp(1.8rem,3vw,2.45rem)/1.1 Georgia,"Times New Roman",serif;letter-spacing:-.04em;text-wrap:balance}
+.updated{margin:0;color:var(--muted);font-size:.7rem;letter-spacing:.02em}
 .updated time{color:var(--ink);font-weight:600}
-.theme{grid-column:3;grid-row:1 / 3;align-self:center;border:1px solid var(--line);border-radius:4px;padding:7px 12px;color:var(--muted);font-size:.75rem;font-weight:600;cursor:pointer}
+.theme{grid-column:2;grid-row:1 / 3;align-self:start;border:1px solid var(--line);border-radius:4px;padding:7px 12px;color:var(--muted);font-size:.75rem;font-weight:600;cursor:pointer}
 .theme:hover{border-color:var(--accent);color:var(--ink)}
 .theme .on{display:none}
 body:has(#light:checked) .theme .off{display:none}
@@ -253,6 +319,23 @@ h2 small{font:400 .75rem/1.6 ui-sans-serif,system-ui,sans-serif;letter-spacing:0
 .srcs{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:14px}
 .src{display:inline-block;max-width:100%;overflow-wrap:anywhere;font-size:.7rem;font-weight:600;line-height:1.7}
 .src:before{content:""}
+.source-links{display:inline-flex;flex-wrap:wrap;gap:6px;max-width:100%;vertical-align:middle;margin:4px 0}
+.source-links .src{padding:4px 8px;border:1px solid var(--line);border-radius:4px;background:var(--bg);font-size:.68rem;line-height:1.5;text-decoration:none}
+.source-links .src:hover{border-color:var(--accent)}
+.source-publisher{display:block;font-weight:700;color:var(--link);font-size:.82rem}
+.source-address{display:block;color:var(--muted);font-size:.7rem;overflow-wrap:anywhere;margin-top:4px}
+.sources a{text-decoration:none}
+.sources a:hover .source-address{color:var(--ink)}
+.card-share{margin-top:12px;grid-column:2 / -1;font-size:.73rem;min-width:0}
+.card-share>summary{display:list-item;list-style-position:inside;width:fit-content;color:var(--muted);cursor:pointer;padding:5px 0}
+.card-share>summary:hover{color:var(--accent)}
+.card-share-options{display:flex;flex-wrap:wrap;gap:8px;padding:10px 0}
+.card-share-options a,.card-share-options button{padding:7px 10px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);font:600 .7rem/1.5 system-ui,sans-serif;text-decoration:none;cursor:pointer}
+.card-share-options a:hover,.card-share-options button:hover{border-color:var(--accent);color:var(--accent)}
+.card-share-options button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.card-share-status{display:block;color:var(--muted);font-size:.7rem}
+.item:target,.pin:target{outline:2px solid var(--accent);outline-offset:-2px;border-radius:4px}
+@media print{.card-share{display:none!important}}
 .hero,.thumb{margin:0;min-width:0;max-width:100%}
 .pin>.hero{margin:0 0 16px}
 .item>.thumb,.person .thumb{margin:12px 0 0}
@@ -269,6 +352,10 @@ h2 small{font:400 .75rem/1.6 ui-sans-serif,system-ui,sans-serif;letter-spacing:0
 .stat:nth-child(n+3){border-top:1px solid var(--line)}
 .stat .v{margin:0;color:var(--accent);font:500 clamp(1.8rem,3vw,2.6rem)/1.15 Georgia,"Times New Roman",serif;letter-spacing:-.045em;overflow-wrap:anywhere}
 .stat h3{margin:10px 0 6px;font-size:.8rem;font-weight:650}
+.stat-note{margin-top:12px}
+.stat-note>summary{cursor:pointer;font-size:.72rem;color:var(--muted);width:fit-content}
+.stat-note>summary:hover{color:var(--accent)}
+.stat-note[open]>summary{margin-bottom:10px}
 .stat p{margin:0;color:var(--muted);font-size:.77rem}
 .person{padding:24px}
 .person.very-important{border-top:3px solid var(--accent)}
@@ -297,7 +384,48 @@ h2 small{font:400 .75rem/1.6 ui-sans-serif,system-ui,sans-serif;letter-spacing:0
 .court .cd{margin:0;color:var(--accent);font-size:.72rem;font-weight:700}
 .sources li{font-size:.75rem}
 footer{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);max-width:85ch;color:var(--muted);font-size:.73rem}
-footer code{font-size:.7rem;color:var(--ink)}
+.footer-credit{display:block;margin-top:14px;color:var(--ink);font-weight:600}
+.pictures{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.photo-card{min-width:0;padding:12px;border:1px solid var(--line);border-radius:6px;background:var(--card)}
+.photo-card .hero img{aspect-ratio:16/9;object-fit:contain;background:var(--bg)}
+.photo-caption{font:400 .95rem/1.5 Georgia,serif;margin:12px 0 0}
+.photo-card .srcs{margin-top:8px}
+.pin .hero img{object-fit:contain;background:var(--bg)}
+.person .thumb{float:right;width:112px;margin:0 0 12px 16px}
+.person .thumb img{aspect-ratio:4/3;object-fit:contain}
+.person-main{display:flow-root}
+.collection-controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0 24px}
+.collection-count{flex:1 1 180px;color:var(--muted);font-size:.75rem}
+.collection-controls button{padding:8px 12px;border:1px solid var(--line);border-radius:4px;background:var(--card);color:var(--ink);font:600 .75rem/1.5 system-ui,sans-serif;cursor:pointer}
+.collection-controls button:hover{border-color:var(--accent)}
+.collection-controls button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.section-fold{margin:18px 0;border:1px solid var(--line);border-radius:6px;background:var(--card)}
+.section-fold>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;cursor:pointer}
+.section-fold>summary::-webkit-details-marker{display:none}
+.section-fold>summary::after{content:"+";font:400 1.5rem/1 system-ui;color:var(--accent)}
+.section-fold[open]>summary::after{content:"−"}
+.section-fold>summary h2{margin:0;padding:0;border:0;min-height:0;font-size:1.4rem}
+.section-fold>summary h2 small{display:block}
+.section-fold>.box{border:0;box-shadow:none}
+.section-fold>.lede{padding:0 20px 20px}
+.section-fold .court{margin:0 16px 12px}
+.page-shortcuts{position:fixed;right:16px;bottom:16px;z-index:20;display:flex;gap:1px;padding:4px;border:1px solid var(--line);border-radius:4px;background:var(--header);box-shadow:var(--shadow)}
+.page-shortcuts a{padding:7px 10px;color:var(--ink);font-size:.72rem;text-decoration:none}
+.page-shortcuts a:hover{color:var(--accent)}
+footer{padding-bottom:40px}
+@media(min-width:1000px){
+ .item:has(>.thumb){grid-template-columns:150px minmax(0,1fr) 148px}
+ .item:has(>.thumb)>.thumb{grid-column:3;grid-row:1 / 3;margin:0;align-self:start}
+ .item:has(>.thumb)>p{grid-column:2}
+ .item:has(>.thumb)>.srcs{grid-column:2}
+}
+@media(max-width:700px){
+ .pictures{display:flex;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:10px}
+ .pictures>.photo-card{flex:0 0 88%;scroll-snap-align:start}
+ .section-fold>summary{padding:16px}
+ .section-fold>summary h2{font-size:1.25rem}
+}
+@media print{.collection-controls,.page-shortcuts{display:none!important}[data-collection]>*[hidden]{display:block!important}}
 .share-panel{margin-top:48px;padding-bottom:24px}
 .share-panel h2{margin-top:0}
 .share-actions{display:flex;flex-wrap:wrap;gap:10px}
@@ -316,11 +444,13 @@ footer code{font-size:.7rem;color:var(--ink)}
 }
 @media(max-width:700px){
   html{scroll-padding-top:250px}
-  .bar{grid-template-columns:auto 1fr auto;padding:16px;gap:8px 12px}
-  h1{font-size:1.24rem}
-  .live{margin-top:3px;padding:4px 6px;font-size:.55rem;gap:5px}
-  .updated{grid-column:1 / 3;font-size:.64rem}
-  .theme{grid-row:2;padding:5px 8px;font-size:.68rem}
+  .bar{padding:16px;gap:12px}
+  h1{font-size:1.8rem}
+  .subtitle{font-size:.75rem;margin-top:6px}
+  .live{padding:3px 6px;font-size:.55rem;gap:5px}
+  .status-row{grid-column:1 / -1;gap:8px}
+  .updated{font-size:.64rem}
+  .theme{grid-row:1;padding:5px 8px;font-size:.68rem}
   .wrap{padding:22px 16px 40px}
   .disclaimer{padding:14px 16px;margin-bottom:30px}
   .top,.people,.stats,.two{grid-template-columns:minmax(0,1fr)}
@@ -368,12 +498,50 @@ function links(value) {
   if (value == null || value === "") return "";
   var urls = Array.isArray(value) ? value : [value];
   if (!urls.length) return "";
-  var out = "";
+  var out = '<span class="source-links" aria-label="Sources">';
   for (var i = 0; i < urls.length; i++) {
     var u = urls[i];
-    out += '<a class="src" href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(hostOf(u)) + "</a>";
+    var label = sourceLabel(u);
+    out += '<a class="src" href="' + esc(u) + '" target="_blank" rel="noopener" aria-label="Read source ' + (i + 1) + ': ' + esc(label) + ' (opens a new tab)">' + (i + 1) + ' · ' + esc(label) + "</a>";
   }
-  return out;
+  return out + '</span>';
+}
+
+var SOURCE_LABELS = __SOURCE_LABELS__;
+function sourceLabel(url) {
+  var host = hostOf(url);
+  return SOURCE_LABELS[host] || host;
+}
+
+function updateId(item) {
+  var value = 2166136261;
+  for (var char of (item.t + '\n' + item.e)) value = Math.imul(value ^ char.codePointAt(0), 16777619) >>> 0;
+  return 'update-' + value.toString(16).padStart(8, '0');
+}
+
+function formValue(value) {
+  return encodeURIComponent(value).replace(/[!'()*]/g, function (char) {
+    return '%' + char.charCodeAt(0).toString(16).toUpperCase();
+  }).replace(/%20/g, '+');
+}
+
+function cardSharing(item) {
+  var url = 'https://jantarmantar.sholock.com/#' + updateId(item);
+  var chars = Array.from(item.e);
+  var excerpt = chars.length <= 180 ? item.e : chars.slice(0, 179).join('') + '…';
+  var short = 'Jantar Mantar update · ' + item.t + ' IST\n\n' + excerpt + '\n\nBot-compiled; verify sources.';
+  var full = 'Jantar Mantar update · ' + item.t + ' IST\n\n' + item.e + '\n\nBot-compiled; verify linked sources.\n' + url;
+  var xUrl = 'https://twitter.com/intent/tweet?text=' + formValue(short) + '&url=' + formValue(url);
+  var whatsappUrl = 'https://wa.me/?text=' + formValue(full);
+  var facebookUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + formValue(url);
+  return '<details class="card-share"><summary>Share update</summary><div class="card-share-options">'
+    + '<a href="' + esc(xUrl) + '" target="_blank" rel="noopener noreferrer" aria-label="Share this update on X (opens a new tab)">X</a>'
+    + '<a href="' + esc(whatsappUrl) + '" target="_blank" rel="noopener noreferrer" aria-label="Share this update on WhatsApp (opens a new tab)">WhatsApp</a>'
+    + '<a href="' + esc(facebookUrl) + '" target="_blank" rel="noopener noreferrer" aria-label="Share this update on Facebook (opens a new tab)">Facebook</a>'
+    + '<a class="update-permalink" href="' + esc(url) + '">Link to update</a>'
+    + '<button type="button" class="copy-update" data-url="' + esc(url) + '" hidden>Copy link</button>'
+    + '</div><input class="share-url card-share-url" value="' + esc(url) + '" readonly aria-label="Update link to copy" hidden>'
+    + '<span class="card-share-status" role="status" aria-live="polite"></span></details>';
 }
 
 function importance(item) {
@@ -469,24 +637,43 @@ function feedItem(item, pinned) {
   var level = importance(item);
   var cls = pinned ? "pin" : "item";
   var shot = figure(item.image, pinned ? "hero" : "thumb");
-  return '<article class="' + cls + " " + level + '">'
+  return '<article class="' + cls + " " + level + '" id="' + (pinned ? 'pin-' : '') + updateId(item) + '">'
     + (pinned ? shot : "")
     + '<div class="meta">' + badge(level) + "<time>" + esc(item.t) + '</time><span class="tz">IST</span></div>'
     + "<p>" + esc(item.e) + "</p>"
     + (pinned ? "" : shot)
     + '<div class="srcs">' + links(item.src) + "</div>"
+    + cardSharing(item)
     + "</article>";
+}
+
+function pictureCards(rows) {
+  var seen = new Set();
+  var cards = "";
+  for (var i = 0; i < rows.length; i++) {
+    var image = rows[i].image;
+    if (!image || !image.url || seen.has(image.url)) continue;
+    seen.add(image.url);
+    cards += '<article class="photo-card">' + figure(image, "hero")
+      + '<p class="photo-caption">' + esc(image.alt || "Source preview") + '</p><div class="srcs">'
+      + links(image.source_url) + '</div></article>';
+  }
+  return cards;
 }
 
 function renderParts(d) {
   if (!d || !d.timeline || !d.detainees) throw new Error("incomplete data");
+  var fullTitle = String(d.title);
+  var separator = /\s+[—–]\s+/.exec(fullTitle);
+  var headerTitle = separator ? fullTitle.slice(0, separator.index) : fullTitle;
+  var headerSubtitle = separator ? fullTitle.slice(separator.index + separator[0].length) : '';
   var ordered = orderedTimeline(d.timeline);
   var top = [];
   for (var i = 0; i < ordered.length; i++) if (importance(ordered[i]) === "very-important") top.push(ordered[i]);
   var stats = "";
   for (var s = 0; s < d.stats.length; s++) {
     var st = d.stats[s];
-    stats += '<article class="stat"><p class="v">' + esc(st.value) + "</p><h3>" + esc(st.label) + "</h3><p>" + esc(st.note) + " " + links(st.src) + "</p></article>";
+    stats += '<article class="stat"><p class="v">' + esc(st.value) + "</p><h3>" + esc(st.label) + '</h3><details class="stat-note"><summary>Context &amp; sources</summary><p>' + esc(st.note) + " " + links(st.src) + "</p></details></article>";
   }
   var pins = "";
   for (var p = 0; p < top.length; p++) pins += feedItem(top[p], true);
@@ -524,12 +711,14 @@ function renderParts(d) {
   var caveats = "";
   for (var k = 0; k < d.caveats.length; k++) caveats += "<li>" + esc(d.caveats[k]) + "</li>";
   var sources = "";
-  for (var u = 0; u < d.sources.length; u++) sources += '<li><a href="' + esc(d.sources[u]) + '" target="_blank" rel="noopener">' + esc(d.sources[u]) + "</a></li>";
+  for (var u = 0; u < d.sources.length; u++) sources += '<li><a href="' + esc(d.sources[u]) + '" target="_blank" rel="noopener"><span class="source-publisher">' + esc(sourceLabel(d.sources[u])) + '</span><span class="source-address">' + esc(d.sources[u]) + "</span></a></li>";
   return {
     title: String(d.title),
-    titleHtml: esc(d.title),
+    titleHtml: esc(headerTitle),
+    subtitleHtml: esc(headerSubtitle),
     updatedHtml: esc(d.last_updated_ist),
     stats: stats,
+    pictures: pictureCards(ordered.concat(d.detainees)),
     pins: pins,
     feed: feed,
     lede: esc(d.summary),
@@ -545,37 +734,150 @@ function renderParts(d) {
 }
 globalThis.renderParts = renderParts;
 
+var collectionLimits = {};
+var lastOpenedHash = null;
+
+function syncScrollPadding() {
+  var header = document.querySelector('.bar');
+  if (header) document.documentElement.style.scrollPaddingTop = Math.ceil(header.getBoundingClientRect().height + 24) + 'px';
+}
+
+function updateCollections() {
+  document.querySelectorAll('[data-collection]').forEach(function (container) {
+    var initial = Number(container.dataset.collection);
+    var limit = collectionLimits[container.id] === undefined ? initial : collectionLimits[container.id];
+    var total = container.children.length;
+    Array.from(container.children).forEach(function (card, index) { card.hidden = index >= limit; });
+    var controls = document.querySelector('[data-controls="' + container.id + '"]');
+    controls.hidden = total <= initial;
+    controls.querySelector('.collection-count').textContent = 'Showing ' + Math.min(limit, total) + ' of ' + total;
+    controls.querySelector('[data-action="more"]').hidden = limit >= total;
+    controls.querySelector('[data-action="all"]').hidden = limit >= total;
+    controls.querySelector('[data-action="less"]').hidden = limit <= initial;
+  });
+  document.querySelectorAll('.copy-update').forEach(function (button) { button.hidden = false; });
+}
+
+function openHashSection(scroll) {
+  var id;
+  try { id = decodeURIComponent(location.hash.slice(1)); } catch (_) { return; }
+  var target = document.getElementById(id);
+  if (!target) return;
+  var container = target.closest('[data-collection]');
+  if (container && target.hidden) {
+    var index = Array.from(container.children).indexOf(target);
+    collectionLimits[container.id] = Math.max(index + 1, collectionLimits[container.id] || Number(container.dataset.collection));
+    updateCollections();
+  }
+  var panel = target.closest('details');
+  if (panel) panel.open = true;
+  if (scroll !== false) target.scrollIntoView({ block: 'start' });
+  lastOpenedHash = location.hash;
+}
+
+function initCollections() {
+  syncScrollPadding();
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(syncScrollPadding).observe(document.querySelector('.bar'));
+  updateCollections();
+  document.querySelectorAll('[data-controls]').forEach(function (controls) {
+    controls.addEventListener('click', function (event) {
+      var button = event.target.closest('button');
+      if (!button) return;
+      var container = document.getElementById(controls.dataset.controls);
+      var initial = Number(container.dataset.collection);
+      var oldLimit = collectionLimits[container.id] === undefined ? initial : collectionLimits[container.id];
+      var action = button.dataset.action;
+      collectionLimits[container.id] = action === 'all' ? Infinity : action === 'less' ? initial : oldLimit + initial;
+      updateCollections();
+      if (button.hidden) {
+        var next = controls.querySelector('button:not([hidden])');
+        if (next) next.focus({ preventScroll: true });
+      }
+      if (action === 'less') container.scrollIntoView({ block: 'start' });
+    });
+  });
+  window.addEventListener('hashchange', openHashSection);
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      if (link.hash === location.hash) openHashSection();
+    });
+  });
+  if (location.hash) openHashSection();
+  document.addEventListener('click', async function (event) {
+    var button = event.target.closest('.copy-update');
+    if (!button) return;
+    var menu = button.closest('.card-share');
+    var status = menu.querySelector('.card-share-status');
+    try {
+      await navigator.clipboard.writeText(button.dataset.url);
+      status.textContent = 'Update link copied.';
+    } catch (_) {
+      var input = menu.querySelector('.card-share-url');
+      input.hidden = false;
+      input.focus();
+      input.select();
+      status.textContent = 'Select and copy this update link.';
+    }
+  });
+  var printState;
+  window.addEventListener('beforeprint', function () {
+    printState = { limits: Object.assign({}, collectionLimits), panels: [] };
+    document.querySelectorAll('details').forEach(function (panel) {
+      printState.panels.push([panel, panel.open]);
+      panel.open = true;
+    });
+    document.querySelectorAll('[data-collection]').forEach(function (container) { collectionLimits[container.id] = Infinity; });
+    updateCollections();
+  });
+  window.addEventListener('afterprint', function () {
+    if (!printState) return;
+    collectionLimits = printState.limits;
+    printState.panels.forEach(function (entry) { entry[0].open = entry[1]; });
+    updateCollections();
+  });
+}
+
 function applyRendered(p) {
+  var openStatNotes = Array.from(document.querySelectorAll('#stats .stat')).filter(function (card) {
+    var note = card.querySelector('.stat-note');
+    return note && note.open;
+  }).map(function (card) { return card.querySelector('h3').textContent; });
   var h1 = document.querySelector("header h1");
+  var subtitle = document.querySelector("header .subtitle");
   var time = document.querySelector(".updated time");
   var map = {
     stats: p.stats,
+    pictures: p.pictures,
     pins: p.pins,
     feed: p.feed,
     lede: p.lede,
     people: p.people,
     "joined-list": p.joined,
+    "courts-col": p.courts,
     "allegations-list": p.allegations,
     "govt-list": p.govt,
     "legal-list": p.legal,
     "caveats-list": p.caveats,
     "source-list": p.sources
   };
-  if (!h1 || !time || !document.getElementById("courts-col")) return;
+  if (!h1 || !subtitle || !time || !document.getElementById("courts-col")) return;
   var key;
   for (key in map) if (!Object.prototype.hasOwnProperty.call(map, key) || !document.getElementById(key)) return;
   document.title = p.title;
   h1.innerHTML = p.titleHtml;
+  subtitle.innerHTML = p.subtitleHtml;
   time.innerHTML = p.updatedHtml;
   for (key in map) if (Object.prototype.hasOwnProperty.call(map, key)) document.getElementById(key).innerHTML = map[key];
-  var col = document.getElementById("courts-col");
-  var heading = document.getElementById("courts");
-  col.innerHTML = "";
-  col.appendChild(heading);
-  col.insertAdjacentHTML("beforeend", p.courts);
+  document.querySelectorAll('#stats .stat').forEach(function (card) {
+    if (openStatNotes.includes(card.querySelector('h3').textContent)) card.querySelector('.stat-note').open = true;
+  });
+  updateCollections();
+  syncScrollPadding();
+  if (location.hash.indexOf('#update-') === 0) openHashSection(lastOpenedHash !== location.hash);
   document.documentElement.setAttribute("data-live", "1");
 }
 
+var lastLivePayload = null;
 function loadLiveData() {
   var url = "https://raw.githubusercontent.com/skshoyeb/jantarmantar/main/data.json?t=" + Date.now();
   fetch(url, { cache: "no-store" })
@@ -584,16 +886,22 @@ function loadLiveData() {
       return res.json();
     })
     .then(function (data) {
+      var payload = JSON.stringify(data);
+      if (payload === lastLivePayload) return;
       applyRendered(renderParts(data));
+      lastLivePayload = payload;
     })
     .catch(function () {});
 }
 
 if (typeof document !== "undefined" && document.getElementById && document.getElementById("stats")) {
+  initCollections();
   loadLiveData();
   setInterval(loadLiveData, 5 * 60 * 1000);
 }
 '''
+
+LIVE_JS = LIVE_JS.replace('__SOURCE_LABELS__', json.dumps(SOURCE_LABELS, ensure_ascii=False))
 
 page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(d["title"])}</title>
@@ -622,35 +930,41 @@ page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name
 <script type="application/ld+json">{structured_data}</script>
 <style>{CSS}</style></head><body id="page-top">
 <input id="light" class="sr" type="checkbox" aria-label="Switch to light mode">
-<header class="bar"><span class="live"><span class="dot" aria-hidden="true"></span>Live</span><h1>{e(d["title"])}</h1>
-<p class="updated">Last updated <time>{e(d["last_updated_ist"])}</time></p>
+<header class="bar"><div class="brand"><h1>{e(header_title)}</h1><p class="subtitle">{e(header_subtitle)}</p></div>
+<div class="status-row"><span class="live"><span class="dot" aria-hidden="true"></span>Live</span><p class="updated">Last updated <time>{e(d["last_updated_ist"])}</time></p></div>
 <label class="theme" for="light"><span class="off">Light</span><span class="on">Dark</span></label>
 <nav class="section-nav" aria-label="Page sections">
-<a href="#at-a-glance">At a glance</a><a href="#highlights">Highlights</a><a href="#live-updates">Live updates</a><a href="#background">Background</a><a href="#detainees">Detainees</a><a href="#supporters">Supporters</a><a href="#courts">Courts</a><a href="#allegations">Allegations</a><a href="#government">Government</a><a href="#legal-context">Legal context</a><a href="#caveats">Caveats</a><a href="#sources">Sources</a>
+<a href="#at-a-glance">At a glance</a><a href="#site-footer">Footer</a><a href="#pictures-heading">Pictures</a><a href="#highlights">Highlights</a><a href="#live-updates">Live updates</a><a href="#background">Background</a><a href="#detainees">Detainees</a><a href="#supporters">Supporters</a><a href="#courts">Courts</a><a href="#allegations">Allegations</a><a href="#government">Government</a><a href="#legal-context">Legal context</a><a href="#caveats">Caveats</a><a href="#sources">Sources</a>
 </nav></header>
 <main class="wrap">
 <div class="disclaimer"><strong>Disclaimer:</strong> This data is auto-generated by a Grok bot. The bot compiled this dashboard while publishing the site, from news reports, official statements, and labelled social-media posts. It is not an official record and has not been checked by a human editor. Names, counts, times, and detention status can be incomplete or wrong. Check the linked sources before relying on it.</div>
 <h2 id="at-a-glance">At a glance</h2>
 <div class="stats" id="stats">{stats}</div>
+<h2 id="pictures-heading">In pictures</h2>
+<p class="section-note">Previews from linked reports. Images may show earlier or related events.</p>
+<div class="pictures" id="pictures" data-collection="3">{pictures}</div>
+<div class="collection-controls" data-controls="pictures" hidden><span class="collection-count"></span><button type="button" data-action="more" aria-controls="pictures">Show more</button><button type="button" data-action="all" aria-controls="pictures">Show all</button><button type="button" data-action="less" aria-controls="pictures" hidden>Show less</button></div>
 <h2 id="highlights">Very important</h2>
 <p class="section-note">Key leader detentions, pinned newest first. Each one is also in the feed below.</p>
-<div class="top" id="pins">{pins}</div>
+<div class="top" id="pins" data-collection="4">{pins}</div>
+<div class="collection-controls" data-controls="pins" hidden><span class="collection-count"></span><button type="button" data-action="more" aria-controls="pins">Show more</button><button type="button" data-action="all" aria-controls="pins">Show all</button><button type="button" data-action="less" aria-controls="pins" hidden>Show less</button></div>
 <h2 id="live-updates">Live updates</h2>
 <p class="section-note">Newest first. Times are IST.</p>
-<div class="feed" id="feed">{feed}</div>
-<h2 id="background">Background</h2>
-<p class="lede" id="lede">{e(d["summary"])}</p>
+<div class="feed" id="feed" data-collection="10">{feed}</div>
+<div class="collection-controls" data-controls="feed" hidden><span class="collection-count"></span><button type="button" data-action="more" aria-controls="feed">Show more</button><button type="button" data-action="all" aria-controls="feed">Show all</button><button type="button" data-action="less" aria-controls="feed" hidden>Show less</button></div>
+<details class="section-fold"><summary><h2 id="background">Background</h2></summary>
+<p class="lede" id="lede">{e(d["summary"])}</p></details>
 <h2 id="detainees">Key people detained</h2>
 <p class="section-note">Status chip, then the recorded time and place.</p>
-<div class="people" id="people">{people}</div>
-<div class="two"><div><h2 id="supporters">Notable people who joined / backed it</h2><div class="box"><ul id="joined-list">{joined}</ul></div></div>
-<div id="courts-col"><h2 id="courts">Court updates</h2>{courts}</div></div>
-<h2 id="allegations">Alleged govt failures &amp; rules broken <small>(these are allegations, not findings)</small></h2>
-<div class="box"><ul id="allegations-list">{allegations}</ul></div>
-<div class="two"><div><h2 id="government">Government / police position</h2><div class="box"><ul id="govt-list">{govt}</ul></div></div>
-<div><h2 id="legal-context">Legal context (reference)</h2><div class="box"><ul id="legal-list">{legal}</ul></div></div></div>
-<h2 id="caveats">Caveats</h2><div class="box"><ul id="caveats-list">{caveats}</ul></div>
-<h2 id="sources">Sources</h2><div class="box"><ul class="sources" id="source-list">{sources}</ul></div>
+<div class="people" id="people" data-collection="6">{people}</div>
+<div class="collection-controls" data-controls="people" hidden><span class="collection-count"></span><button type="button" data-action="more" aria-controls="people">Show more</button><button type="button" data-action="all" aria-controls="people">Show all</button><button type="button" data-action="less" aria-controls="people" hidden>Show less</button></div>
+<div class="two"><div><details class="section-fold"><summary><h2 id="supporters">Notable people who joined / backed it</h2></summary><div class="box"><ul id="joined-list">{joined}</ul></div></details></div>
+<div><details class="section-fold"><summary><h2 id="courts">Court updates</h2></summary><div id="courts-col">{courts}</div></details></div></div>
+<details class="section-fold"><summary><h2 id="allegations">Alleged govt failures &amp; rules broken <small>(these are allegations, not findings)</small></h2></summary><div class="box"><ul id="allegations-list">{allegations}</ul></div></details>
+<div class="two"><div><details class="section-fold"><summary><h2 id="government">Government / police position</h2></summary><div class="box"><ul id="govt-list">{govt}</ul></div></details></div>
+<div><details class="section-fold"><summary><h2 id="legal-context">Legal context (reference)</h2></summary><div class="box"><ul id="legal-list">{legal}</ul></div></details></div></div>
+<details class="section-fold"><summary><h2 id="caveats">Caveats</h2></summary><div class="box"><ul id="caveats-list">{caveats}</ul></div></details>
+<details class="section-fold"><summary><h2 id="sources">Sources</h2></summary><div class="box"><ul class="sources" id="source-list">{sources}</ul></div></details>
 <section class="share-panel" aria-labelledby="share-heading">
 <h2 id="share-heading">Share this dashboard</h2>
 <p class="section-note">Bot-compiled updates. Please verify reports with the linked sources.</p>
@@ -663,8 +977,8 @@ page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name
 <input class="share-url" id="share-url" type="url" value="{e(SITE_URL)}" readonly aria-label="Dashboard link to copy">
 <p class="share-status" id="share-status" role="status" aria-live="polite"></p>
 </section>
-<footer>Auto-generated by a Grok bot from mainstream media, official statements and labelled social-media posts. Not an official record. To refresh the live page, edit <code>data.json</code> on main.</footer>
-</main><a class="back-top" href="#page-top" aria-label="Back to top of page">Back to top</a>
+<footer id="site-footer">Updates compiled by Grok Bot from news reports, official statements and labelled social-media posts. Not an official record. Verify reports with the linked sources.<span class="footer-credit">&copy; 2026 Sholock. Source images belong to their respective owners.</span></footer>
+</main><nav class="page-shortcuts" aria-label="Page shortcuts"><a href="#page-top">Back to top</a><a href="#site-footer">Footer</a></nav>
 <script>
 const copyButton = document.getElementById('copy-link');
 const shareUrl = document.getElementById('share-url');
