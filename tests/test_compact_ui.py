@@ -79,6 +79,13 @@ class CompactUITests(unittest.TestCase):
             with self.subTest(width=width):
                 self.page.set_viewport_size({'width': width, 'height': 900})
                 self.load()
+                self.assertEqual(self.page.locator('.disclaimer').count(), 0)
+                self.assertEqual(self.page.locator('.section-nav a[href="#site-footer"]').count(), 0)
+                self.assertTrue(self.page.locator('.section-nav a').evaluate_all('''links =>
+                  links.every((link, index) => index === 0 ||
+                    !!(document.getElementById(links[index - 1].hash.slice(1)).compareDocumentPosition(
+                      document.getElementById(link.hash.slice(1))) & Node.DOCUMENT_POSITION_FOLLOWING))
+                '''))
                 for light in [False, True]:
                     if self.page.locator('#light').is_checked() != light:
                         self.page.locator('.theme').click()
