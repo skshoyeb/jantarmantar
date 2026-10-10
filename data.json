@@ -1,6 +1,6 @@
 {
   "title": "Jantar Mantar 2.0 — CJP / anti-SIR protest, Delhi",
-  "last_updated_ist": "10 Oct 2026, 2:50 PM IST",
+  "last_updated_ist": "10 Oct 2026, 3:25 PM IST",
   "summary": "The Cockroach Janta Party (CJP), a youth movement, along with Left groups, student unions and civil-society groups, called a protest at Jantar Mantar, New Delhi, on Sat 10 Oct 2026. They want Chief Election Commissioner Gyanesh Kumar to resign and the Special Intensive Revision (SIR) of voter rolls scrapped. Critics say SIR has removed more than 130 million names (NPR/AP). Delhi Police refused permission and locked down central Delhi: BNSS Sec 163 orders, about 45 metro stations shut, trains cancelled, internet cut within 4 km, and roughly 23,000 CAPF personnel deployed. Police detained CJP founder Abhijeet Dipke and leaders Saurav Das and Ashutosh Ranka on board their flight. YouTuber Dhruv Rathee was detained at his Gurugram home. Opposition leaders, lawyers and journalists were also detained. INDIA bloc street protests have been running since about 2 Oct, and Rahul Gandhi was detained on 6 and 7 Oct.",
   "stats": [
     {
@@ -16,15 +16,21 @@
       "src": "https://scroll.in/latest/1096278/at-least-10000-detained-across-india-ahead-of-october-10-delhi-protest-against-gyanesh-kumar-cjp"
     },
     {
+      "label": "SFI members detained (SFI claim)",
+      "value": "400+",
+      "note": "SFI national president Adarsh M Saji told PTI more than 400 members were detained after their march began around 10 AM. Not verified independently.",
+      "src": "https://www.cnbctv18.com/india/cjp-delhi-protest-cji-surya-kant-speaks-authorities-detained-lawyers-released-20008999.htm"
+    },
+    {
       "label": "Released today",
       "value": "No official count",
-      "note": "A group of lawyers detained near the Supreme Court were released after the CJI stepped in (about 2:30 PM). No other releases on 10 Oct were confirmed as of 2:50 PM.",
+      "note": "A group of lawyers detained near the Supreme Court were released after the CJI stepped in (about 2:30 PM). No other releases on 10 Oct were confirmed as of 3:25 PM.",
       "src": "https://www.barandbench.com/news/litigation/delhi-cjp-protest-detained-lawyers-released-after-scba-sg-intervene"
     },
     {
       "label": "Named key figures still held",
       "value": "At least 5",
-      "note": "Dipke, Das, Ranka, Dhruv Rathee and Ratna Singh. No release reported for any of them as of about 2:45 PM IST.",
+      "note": "Dipke, Das, Ranka, Dhruv Rathee and Ratna Singh. No release reported for any of them as of about 3:25 PM IST.",
       "src": "https://www.tribuneindia.com/liveblog/delhi/delhi-cjp-protest-live-updates-cjps-jantar-mantar-2-0-today-amid-traffic-curbs/"
     }
   ],
@@ -71,8 +77,8 @@
       "when": "10 Oct, morning (reported by about 9:15–10:26 AM IST)",
       "where": "Outside her home in Jangpura, Delhi. Kept inside a car",
       "reason": "She says police had only 'oral orders from above' and showed no notification",
-      "status": "Held (last report). About 2 PM she moved Saket District Court under BNSS Sec 175(3)/174",
-      "src": "https://theprint.in/india/jantar-mantar-delhi-cjp-protest-live-updates/3066985/"
+      "status": "Held (last report, about 8 hours by 3:20 PM per her lawyer). Her plea is before Saket CMM Abhinav Pandey; at about 3:20 PM court staff said the judge was dictating an order",
+      "src": "https://x.com/barandbench/status/2108857920712806673"
     },
     {
       "name": "Mehr Pasricha",
@@ -111,6 +117,15 @@
       "src": "https://www.tribuneindia.com/liveblog/delhi/delhi-cjp-protest-live-updates-cjps-jantar-mantar-2-0-today-amid-traffic-curbs/"
     },
     {
+      "name": "Manik Sarkar, Jitendra Chaudhury, Elamaram Kareem + others",
+      "who": "CPI(M): former Tripura CM; Tripura CPI(M) leader; CITU general secretary. Also student and trade union activists",
+      "when": "10 Oct, afternoon (CPI(M) Keralam post at 3:07 PM IST)",
+      "where": "Detained during a CPI(M) march in Delhi and taken by bus; CPI(M) says they are held at Rajiv Gandhi Stadium, Bawana (about 38 km from Jantar Mantar)",
+      "reason": "None reported",
+      "status": "Held at last report (per CPI(M))",
+      "src": "https://x.com/CPIMKerala/status/2108854361275482495"
+    },
+    {
       "name": "Tushar Gandhi",
       "who": "Activist, Mahatma Gandhi's great-grandson ('Hum Bharat Ke Log')",
       "when": "10 Oct, before about 12:15 PM IST",
@@ -129,13 +144,13 @@
       "src": "https://theprint.in/india/jantar-mantar-delhi-cjp-protest-live-updates/3066985/"
     },
     {
-      "name": "Mamata Banerjee + 5 TMC leaders (incl. Saket Gokhale)",
+      "name": "Mamata Banerjee + 5 TMC leaders (incl. Derek O'Brien, Dola Sen, Saket Gokhale)",
       "who": "TMC chief and party MPs/leaders",
-      "when": "10 Oct, about 2:25 PM IST",
-      "where": "Outside her residence in Delhi. Put in a 'prisoner van' (Gokhale)",
+      "when": "10 Oct, about 2:25 PM IST (Tribune); ThePrint logged it at 3 PM",
+      "where": "Sitting on a dharna at the South Avenue bus stand, near her Delhi residence. Put in a 'prisoner van' and driven to an undisclosed place (Gokhale)",
       "reason": "None reported",
       "status": "Held at last report",
-      "src": "https://www.tribuneindia.com/liveblog/delhi/delhi-cjp-protest-live-updates-cjps-jantar-mantar-2-0-today-amid-traffic-curbs/"
+      "src": "https://www.indiatoday.in/india/story/mamata-banerjee-detained-amid-protest-against-cec-gyanesh-kumar-in-delhi-3014038-2026-10-10"
     },
     {
       "name": "Journalists: Ayush Tiwari & Shoaib Daniyal (Scroll); Ashwine Kumar Singh, Astha Savyasachi, Anmol Pritam (Newslaundry)",
@@ -264,6 +279,12 @@
       "importance": "breaking",
       "e": "Ratna Singh moves Saket court. Neha Bora and Yogendra Yadav detained on the Dilli Haat march. Mamata Banerjee and 5 TMC leaders detained outside her residence.",
       "src": "https://www.tribuneindia.com/liveblog/delhi/delhi-cjp-protest-live-updates-cjps-jantar-mantar-2-0-today-amid-traffic-curbs/"
+    },
+    {
+      "t": "10 Oct, ~3–3:20 PM",
+      "importance": "breaking",
+      "e": "CPI(M) says former Tripura CM Manik Sarkar and CITU's Elamaram Kareem are held at Bawana stadium. At Saket court, the magistrate is dictating an order on Ratna Singh's plea.",
+      "src": "https://x.com/barandbench/status/2108857920712806673"
     }
   ],
   "joined": [
@@ -353,6 +374,11 @@
       "claim": "Blanket shutdown: internet cut within 4 km, 45 metro stations shut, 75 trains cancelled (Tribune; Kanimozhi claims 250+)",
       "by": "Opposition; reported by Tribune / ThePrint",
       "src": "https://www.tribuneindia.com/liveblog/delhi/delhi-cjp-protest-live-updates-cjps-jantar-mantar-2-0-today-amid-traffic-curbs/"
+    },
+    {
+      "claim": "People with no link to the protest picked up, e.g. a man taking a relative to hospital who was detained on Mahadev Road and taken to Bawana stadium",
+      "by": "Detainee quoted by The Indian Express",
+      "src": "https://indianexpress.com/article/cities/delhi/jantar-mantar-protest-kerala-cm-pinarayi-vijayan-content-creators-journalists-sir-gyanesh-kumar-10915379/"
     }
   ],
   "govt_position": [
@@ -407,13 +433,13 @@
     {
       "date": "10 Oct",
       "court": "Saket District Court",
-      "action": "Ratna Singh filed an urgent application under BNSS 175(3)/174 seeking an FIR and a status report on her 'wrongful confinement'.",
-      "src": "https://theprint.in/india/jantar-mantar-delhi-cjp-protest-live-updates/3066985/"
+      "action": "Ratna Singh's urgent application under BNSS 175(3)/174, before CMM Abhinav Pandey, seeks an FIR and a status report on her 'wrongful confinement'. At about 3:20 PM court staff said the judge was dictating an order.",
+      "src": "https://www.livelaw.in/top-stories/delhi-court-ratna-singh-cjp-fir-illegal-detention-gyanesh-kumar-protest-554049"
     }
   ],
   "caveats": [
     "Detention counts differ a lot by source and time. Official police figures are lower than media and CJP figures. CJP's 10,000+ is unverified.",
-    "Most detentions are preventive, not formal arrests. Release status of key figures was not reported as of about 2:45 PM IST; check again later.",
+    "Most detentions are preventive, not formal arrests. Release status of key figures was not reported as of about 3:25 PM IST; check again later.",
     "Times marked '~' are approximate and come from live-blog timestamps or post times converted to IST.",
     "Dhruv Rathee's housing society is named differently by different outlets."
   ],
@@ -428,6 +454,8 @@
     "https://www.barandbench.com/news/litigation/delhi-cjp-protest-detained-lawyers-released-after-scba-sg-intervene",
     "https://www.scobserver.in/journal/sc-asks-authorities-to-regulate-metro-train-services-ahead-of-cjp-protest/",
     "https://scroll.in/latest/1096278/at-least-10000-detained-across-india-ahead-of-october-10-delhi-protest-against-gyanesh-kumar-cjp",
-    "https://x.com/Cockroachisback"
+    "https://x.com/Cockroachisback",
+    "https://indianexpress.com/article/cities/delhi/jantar-mantar-protest-kerala-cm-pinarayi-vijayan-content-creators-journalists-sir-gyanesh-kumar-10915379/",
+    "https://www.livelaw.in/top-stories/delhi-court-ratna-singh-cjp-fir-illegal-detention-gyanesh-kumar-protest-554049"
   ]
 }
