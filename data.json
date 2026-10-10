@@ -1,6 +1,6 @@
 {
   "title": "Jantar Mantar 2.0 — CJP / anti-SIR protest, Delhi",
-  "last_updated_ist": "10 Oct 2026, 3:25 PM IST",
+  "last_updated_ist": "10 Oct 2026, 3:52 PM IST",
   "summary": "The Cockroach Janta Party (CJP), a youth movement, along with Left groups, student unions and civil-society groups, called a protest at Jantar Mantar, New Delhi, on Sat 10 Oct 2026. They want Chief Election Commissioner Gyanesh Kumar to resign and the Special Intensive Revision (SIR) of voter rolls scrapped. Critics say SIR has removed more than 130 million names (NPR/AP). Delhi Police refused permission and locked down central Delhi: BNSS Sec 163 orders, about 45 metro stations shut, trains cancelled, internet cut within 4 km, and roughly 23,000 CAPF personnel deployed. Police detained CJP founder Abhijeet Dipke and leaders Saurav Das and Ashutosh Ranka on board their flight. YouTuber Dhruv Rathee was detained at his Gurugram home. Opposition leaders, lawyers and journalists were also detained. INDIA bloc street protests have been running since about 2 Oct, and Rahul Gandhi was detained on 6 and 7 Oct.",
   "stats": [
     {
@@ -24,13 +24,13 @@
     {
       "label": "Released today",
       "value": "No official count",
-      "note": "A group of lawyers detained near the Supreme Court were released after the CJI stepped in (about 2:30 PM). No other releases on 10 Oct were confirmed as of 3:25 PM.",
+      "note": "A group of lawyers detained near the Supreme Court were released after the CJI stepped in (about 2:30 PM). No other releases on 10 Oct were confirmed as of 3:52 PM.",
       "src": "https://www.barandbench.com/news/litigation/delhi-cjp-protest-detained-lawyers-released-after-scba-sg-intervene"
     },
     {
       "label": "Named key figures still held",
-      "value": "At least 5",
-      "note": "Dipke, Das, Ranka, Dhruv Rathee and Ratna Singh. No release reported for any of them as of about 3:25 PM IST.",
+      "value": "At least 7",
+      "note": "Dipke, Das, Ranka, Dhruv Rathee, Ratna Singh, Arvind Kejriwal and Manish Sisodia. No release reported for any of them as of about 3:52 PM IST.",
       "src": "https://www.tribuneindia.com/liveblog/delhi/delhi-cjp-protest-live-updates-cjps-jantar-mantar-2-0-today-amid-traffic-curbs/"
     }
   ],
@@ -77,8 +77,11 @@
       "when": "10 Oct, morning (reported by about 9:15–10:26 AM IST)",
       "where": "Outside her home in Jangpura, Delhi. Kept inside a car",
       "reason": "She says police had only 'oral orders from above' and showed no notification",
-      "status": "Held (last report, about 8 hours by 3:20 PM per her lawyer). Her plea is before Saket CMM Abhinav Pandey; at about 3:20 PM court staff said the judge was dictating an order",
-      "src": "https://x.com/barandbench/status/2108857920712806673"
+      "status": "Held (last report, about 8 hours by 3:20 PM per her lawyer). Her FIR plea is before Saket CMM Abhinav Pandey and was still pending as of 3:52 PM. LiveLaw says court staff said the judge was dictating an order in a different case.",
+      "src": [
+        "https://x.com/barandbench/status/2108857920712806673",
+        "https://x.com/LiveLawIndia/status/2108858096265371690"
+      ]
     },
     {
       "name": "Mehr Pasricha",
@@ -108,13 +111,16 @@
       "src": "https://www.tribuneindia.com/liveblog/delhi/delhi-cjp-protest-live-updates-cjps-jantar-mantar-2-0-today-amid-traffic-curbs/"
     },
     {
-      "name": "M.A. Baby, Brinda Karat",
-      "who": "CPI(M) leaders",
-      "when": "10 Oct (time not reported)",
-      "where": "Jantar Mantar area",
+      "name": "M.A. Baby, Brinda Karat, P. Rajeev, K.K. Shailaja, M.V. Govindan, P.K. Sreemathy, Sujan Chakraborty",
+      "who": "CPI(M) leaders. The Wire: Baby, Karat, P. Rajeev, K.K. Shailaja, M.V. Govindan and P.K. Sreemathy were put on a bus as they set out from Kerala House. Politburo member Sujan Chakraborty says he and about 50 others are held at Burari police station.",
+      "when": "10 Oct, morning (set out from Kerala House)",
+      "where": "Put on a bus as they left Kerala House (The Wire). Sujan Chakraborty says he and about 50 others are held at Burari police station.",
       "reason": "None reported",
-      "status": "Unknown",
-      "src": "https://www.tribuneindia.com/liveblog/delhi/delhi-cjp-protest-live-updates-cjps-jantar-mantar-2-0-today-amid-traffic-curbs/"
+      "status": "Held at last report (The Wire / Sujan Chakraborty)",
+      "src": [
+        "https://www.tribuneindia.com/liveblog/delhi/delhi-cjp-protest-live-updates-cjps-jantar-mantar-2-0-today-amid-traffic-curbs/",
+        "https://m.thewire.in/article/government/ma-baby-brinda-karat-pinarayi-vijayan-john-brittas-detained"
+      ]
     },
     {
       "name": "Manik Sarkar, Jitendra Chaudhury, Elamaram Kareem + others",
@@ -187,6 +193,37 @@
       "reason": "Police said no prior permission",
       "status": "RELEASED: about 10 PM on 6 Oct; about 8:30 PM on 7 Oct (TOI)",
       "src": "https://www.indiatoday.in/india/story/rahul-gandhi-priyanka-gandhi-detained-again-opposition-protest-gyanesh-kumar-3011910-2026-10-07"
+    },
+    {
+      "name": "Arvind Kejriwal",
+      "who": "AAP national convener, ex-Delhi CM",
+      "when": "10 Oct; first reported by about 2:55 PM IST (TOI article published 09:25 UTC); ThePrint logged it at 3:25 PM",
+      "where": "Outside his residence while trying to march to Jantar Mantar (TOI); Business Today says outside Lodhi Estate",
+      "reason": "None reported. He was trying to march to Jantar Mantar.",
+      "status": "Held at last report",
+      "src": [
+        "https://timesofindia.indiatimes.com/india/watch-arvind-kejriwal-detained-outside-residence-while-attempting-to-march-to-jantar-mantar/articleshow/134851629.cms",
+        "https://www.businesstoday.in/india/story/cjp-protest-today-after-mamata-delhi-police-detains-arvind-kejriwal-560810-2026-10-10",
+        "https://theprint.in/india/jantar-mantar-delhi-cjp-protest-live-updates/3066985/"
+      ]
+    },
+    {
+      "name": "Gopal Rai",
+      "who": "AAP leader",
+      "when": "10 Oct (time not reported)",
+      "where": "Delhi; detained by Delhi Police while protesting (Business Today)",
+      "reason": "None reported",
+      "status": "Held at last report",
+      "src": "https://www.businesstoday.in/india/story/cjp-protest-today-after-mamata-delhi-police-detains-arvind-kejriwal-560810-2026-10-10"
+    },
+    {
+      "name": "Manish Sisodia, Baltej Punia, Sonia Mann",
+      "who": "AAP: ex-Delhi deputy CM, with Baltej Punia and Sonia Mann. Punjab FM Harpal Singh Cheema also took part.",
+      "when": "10 Oct, early afternoon (reported by about 1:42 PM IST; Tribune updated 2:37 PM)",
+      "where": "AAP protest near the Punjab Chief Electoral Officer's office, Chandigarh",
+      "reason": "None reported",
+      "status": "Held at last report",
+      "src": "https://www.tribuneindia.com/news/punjab/aap-holds-protest-against-cec-in-chandigarh-backs-cjp-stir-call-sisodia-other-leaders-detained/"
     }
   ],
   "timeline": [
@@ -283,8 +320,45 @@
     {
       "t": "10 Oct, ~3–3:20 PM",
       "importance": "very-important",
-      "e": "CPI(M) says former Tripura CM Manik Sarkar and CITU's Elamaram Kareem are held at Bawana stadium. At Saket court, the magistrate is dictating an order on Ratna Singh's plea.",
-      "src": "https://x.com/barandbench/status/2108857920712806673"
+      "e": "CPI(M) says former Tripura CM Manik Sarkar and CITU's Elamaram Kareem are held at Bawana stadium. At Saket court, LiveLaw says staff told reporters the magistrate was dictating an order in a different case; Ratna Singh's FIR plea was still pending as of 3:52 PM.",
+      "src": [
+        "https://x.com/barandbench/status/2108857920712806673",
+        "https://x.com/LiveLawIndia/status/2108858096265371690"
+      ]
+    },
+    {
+      "t": "10 Oct, ~1:42 PM",
+      "importance": "very-important",
+      "e": "Manish Sisodia and Punjab AAP leaders Baltej Punia and Sonia Mann detained by Chandigarh Police near the Punjab Chief Electoral Officer's office. Punjab FM Harpal Singh Cheema also took part.",
+      "src": "https://www.tribuneindia.com/news/punjab/aap-holds-protest-against-cec-in-chandigarh-backs-cjp-stir-call-sisodia-other-leaders-detained/"
+    },
+    {
+      "t": "10 Oct, ~2:55–3:25 PM",
+      "importance": "very-important",
+      "e": "Arvind Kejriwal detained by Delhi Police while trying to march to Jantar Mantar. TOI says outside his residence; Business Today says outside Lodhi Estate. Gopal Rai also detained. AAP's Atishi alleges Kejriwal was 'brutally taken into custody'.",
+      "src": [
+        "https://timesofindia.indiatimes.com/india/watch-arvind-kejriwal-detained-outside-residence-while-attempting-to-march-to-jantar-mantar/articleshow/134851629.cms",
+        "https://www.businesstoday.in/india/story/cjp-protest-today-after-mamata-delhi-police-detains-arvind-kejriwal-560810-2026-10-10",
+        "https://theprint.in/india/jantar-mantar-delhi-cjp-protest-live-updates/3066985/"
+      ]
+    },
+    {
+      "t": "10 Oct, 3:23 PM",
+      "importance": "important",
+      "e": "CJP's Ajinkya Shinde, in a video, tells people to march on: 'Wherever the Delhi Police try to stop you, make it your Jantar Mantar.' Says the movement continues till the CEC resigns.",
+      "src": "https://www.tribuneindia.com/liveblog/delhi/delhi-cjp-protest-live-updates-cjps-jantar-mantar-2-0-today-amid-traffic-curbs/"
+    },
+    {
+      "t": "10 Oct, 3:40 PM",
+      "importance": "important",
+      "e": "More than 50 protesters detained near Dilli Haat at Neha Bora's call; some say they weren't part of the protest.",
+      "src": "https://theprint.in/india/jantar-mantar-delhi-cjp-protest-live-updates/3066985/"
+    },
+    {
+      "t": "10 Oct, 3:44 PM",
+      "importance": "routine",
+      "e": "About 200 students from Punjab reached the Jantar Mantar area after spending the night at Gurdwara Bangla Sahib; several were detained.",
+      "src": "https://www.tribuneindia.com/news/punjab/changed-trains-took-sleeper-buses-punjab-students-join-jantar-mantar-protest-several-detained/"
     }
   ],
   "joined": [
@@ -327,6 +401,10 @@
     {
       "name": "Sonam Wangchuk",
       "role": "Sent good wishes and urged peace; not attending"
+    },
+    {
+      "name": "Manish Sisodia, Harpal Singh Cheema",
+      "role": "AAP; led the Chandigarh solidarity protest. Sisodia was detained there."
     }
   ],
   "allegations": [
@@ -379,6 +457,21 @@
       "claim": "People with no link to the protest picked up, e.g. a man taking a relative to hospital who was detained on Mahadev Road and taken to Bawana stadium",
       "by": "Detainee quoted by The Indian Express",
       "src": "https://indianexpress.com/article/cities/delhi/jantar-mantar-protest-kerala-cm-pinarayi-vijayan-content-creators-journalists-sir-gyanesh-kumar-10915379/"
+    },
+    {
+      "claim": "Kejriwal was 'brutally taken into custody'",
+      "by": "Atishi (AAP)",
+      "src": "https://theprint.in/india/jantar-mantar-delhi-cjp-protest-live-updates/3066985/"
+    },
+    {
+      "claim": "A video shows Delhi Police beating a protester ('Are Delhi Police beating peaceful GenZ protesters on the orders of Amit Shah?'). Unverified.",
+      "by": "AAP",
+      "src": "https://www.businesstoday.in/india/story/cjp-protest-today-after-mamata-delhi-police-detains-arvind-kejriwal-560810-2026-10-10"
+    },
+    {
+      "claim": "Some people detained near Dilli Haat say they were not part of the protest",
+      "by": "Detainees, via ThePrint",
+      "src": "https://theprint.in/india/jantar-mantar-delhi-cjp-protest-live-updates/3066985/"
     }
   ],
   "govt_position": [
@@ -433,13 +526,13 @@
     {
       "date": "10 Oct",
       "court": "Saket District Court",
-      "action": "Ratna Singh's urgent application under BNSS 175(3)/174, before CMM Abhinav Pandey, seeks an FIR and a status report on her 'wrongful confinement'. At about 3:20 PM court staff said the judge was dictating an order.",
-      "src": "https://www.livelaw.in/top-stories/delhi-court-ratna-singh-cjp-fir-illegal-detention-gyanesh-kumar-protest-554049"
+      "action": "Ratna Singh's urgent application under BNSS 175(3)/174, before CMM Abhinav Pandey, seeks an FIR and a status report on her 'wrongful confinement'. LiveLaw reports that at about 3:20 PM court staff said the judge was dictating an order in a different case and would take about half an hour more to sit. No order on her plea was reported as of 3:52 PM IST.",
+      "src": "https://x.com/LiveLawIndia/status/2108858096265371690"
     }
   ],
   "caveats": [
     "Detention counts differ a lot by source and time. Official police figures are lower than media and CJP figures. CJP's 10,000+ is unverified.",
-    "Most detentions are preventive, not formal arrests. Release status of key figures was not reported as of about 3:25 PM IST; check again later.",
+    "Most detentions are preventive, not formal arrests. Release status of key figures was not reported as of about 3:52 PM IST; check again later.",
     "Times marked '~' are approximate and come from live-blog timestamps or post times converted to IST.",
     "Dhruv Rathee's housing society is named differently by different outlets."
   ],
@@ -456,6 +549,12 @@
     "https://scroll.in/latest/1096278/at-least-10000-detained-across-india-ahead-of-october-10-delhi-protest-against-gyanesh-kumar-cjp",
     "https://x.com/Cockroachisback",
     "https://indianexpress.com/article/cities/delhi/jantar-mantar-protest-kerala-cm-pinarayi-vijayan-content-creators-journalists-sir-gyanesh-kumar-10915379/",
-    "https://www.livelaw.in/top-stories/delhi-court-ratna-singh-cjp-fir-illegal-detention-gyanesh-kumar-protest-554049"
+    "https://www.livelaw.in/top-stories/delhi-court-ratna-singh-cjp-fir-illegal-detention-gyanesh-kumar-protest-554049",
+    "https://timesofindia.indiatimes.com/india/watch-arvind-kejriwal-detained-outside-residence-while-attempting-to-march-to-jantar-mantar/articleshow/134851629.cms",
+    "https://www.businesstoday.in/india/story/cjp-protest-today-after-mamata-delhi-police-detains-arvind-kejriwal-560810-2026-10-10",
+    "https://www.tribuneindia.com/news/punjab/aap-holds-protest-against-cec-in-chandigarh-backs-cjp-stir-call-sisodia-other-leaders-detained/",
+    "https://m.thewire.in/article/government/ma-baby-brinda-karat-pinarayi-vijayan-john-brittas-detained",
+    "https://x.com/LiveLawIndia/status/2108858096265371690",
+    "https://www.tribuneindia.com/news/punjab/changed-trains-took-sleeper-buses-punjab-students-join-jantar-mantar-protest-several-detained/"
   ]
 }

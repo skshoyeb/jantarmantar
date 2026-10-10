@@ -59,7 +59,8 @@ def badge(level):
 # Presentation only: these recorded detentions are the owner's top priority.
 VIP_NAMES = (
     'dhruv rathee', 'abhijeet dipke', 'saurav das', 'ashutosh ranka', 'ratna singh',
-    'neha bora', 'yogendra yadav', 'mamata banerjee', 'pinarayi vijayan', 'john brittas',
+    'neha bora', 'yogendra yadav', 'mamata banerjee', 'arvind kejriwal', 'manish sisodia',
+    'pinarayi vijayan', 'john brittas',
     'k.n. balagopal', 'm.a. baby', 'brinda karat', 'manik sarkar', 'jitendra chaudhury',
     'elamaram kareem',
 )
