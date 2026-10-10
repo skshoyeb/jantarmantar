@@ -62,7 +62,13 @@
         "https://www.thehindu.com/news/cities/Delhi/dhruv-rathee-detained-cec-gyanesh-kumar-jantar-mantar-protest-updates/article71567131.ece",
         "https://www.ndtv.com/india-news/4-ex-chief-ministers-among-1-500-detained-in-delhi-in-police-crackdown-on-cjp-protest-dipke-mamata-vijayan-kejriwal-among-them-12166791",
         "https://x.com/ANI/status/2108952777196179639"
-      ]
+      ],
+      "image": {
+        "url": "https://th-i.thgim.com/public/incoming/4d5nbx/article71567113.ece/alternates/LANDSCAPE_1200/PTI10_08_2026_000196A.jpg",
+        "alt": "Dhruv Rathee speaking into a microphone.",
+        "credit": "The Hindu",
+        "source_url": "https://www.thehindu.com/news/cities/Delhi/dhruv-rathee-detained-cec-gyanesh-kumar-jantar-mantar-protest-updates/article71567131.ece"
+      }
     },
     {
       "name": "Abhijeet Dipke",
@@ -84,7 +90,13 @@
         "https://www.thehindu.com/news/national/will-come-back-tomorrow-youth-groups-vow-to-continue-protest-till-gyanesh-kumar-resigns/article71568565.ece",
         "https://x.com/ians_india/status/2108944269738397950",
         "https://x.com/ANI/status/2108952777196179639"
-      ]
+      ],
+      "image": {
+        "url": "https://akm-img-a-in.tosshub.com/indiatoday/images/story/202610/abhijeet-dipke-arrested-103513365-16x9_0.png?VersionId=2imL0soQoYoN8IMBoo6FuYQ3f5VIUGbh",
+        "alt": "Abhijeet Dipke being escorted by police officers.",
+        "credit": "India Today",
+        "source_url": "https://www.indiatoday.in/india/story/abhijeet-dipke-cjp-leader-detained-from-air-india-aircraft-in-delhi-protest-jantar-mantar-3013896-2026-10-10"
+      }
     },
     {
       "name": "Saurav Das",
@@ -236,7 +248,13 @@
         "https://x.com/thewire_in/status/2108915812505649388",
         "https://x.com/IndiaToday/status/2108935830823927928",
         "https://x.com/_YogendraYadav/status/2108952366020284605"
-      ]
+      ],
+      "image": {
+        "url": "https://th-i.thgim.com/public/incoming/91k9yz/article71569099.ece/alternates/LANDSCAPE_1200/WhatsApp%20Image%202026-10-10%20at%209.05.41%20PM.jpeg",
+        "alt": "Yogendra Yadav speaking to a cluster of microphones.",
+        "credit": "The Hindu",
+        "source_url": "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-new-delhi-election-commissioner-gyanesh-kumar-resignation-sir-cec-row-october-10-2026-live-news/article71566021.ece"
+      }
     },
     {
       "name": "Mamata Banerjee + 5 TMC leaders (incl. Derek O'Brien, Dola Sen, Saket Gokhale)",
@@ -255,7 +273,13 @@
         "https://www.ndtv.com/india-news/4-ex-chief-ministers-among-1-500-detained-in-delhi-in-police-crackdown-on-cjp-protest-dipke-mamata-vijayan-kejriwal-among-them-12166791",
         "https://x.com/ANI/status/2108930308255158404",
         "https://x.com/PTI_News/status/2108932418040480010"
-      ]
+      ],
+      "image": {
+        "url": "https://akm-img-a-in.tosshub.com/indiatoday/images/story/202610/mamata-banerjee-detained-100453179-16x9_0.jpg?VersionId=MNmkQav70ZnTKWdlFORg7GMdtvoLpq9q",
+        "alt": "Mamata Banerjee and Arvind Kejriwal seated in a police bus.",
+        "credit": "India Today",
+        "source_url": "https://www.indiatoday.in/india/story/mamata-banerjee-detained-amid-protest-against-cec-gyanesh-kumar-in-delhi-3014038-2026-10-10"
+      }
     },
     {
       "name": "Journalists: Ayush Tiwari & Shoaib Daniyal (Scroll); Ashwine Kumar Singh, Astha Savyasachi, Anmol Pritam (Newslaundry); Divya Aslesha (Scroll)",
@@ -279,7 +303,13 @@
       "where": "Near Bhagwan Das Road, by the Supreme Court",
       "reason": "None reported; SCBA alleges excessive force",
       "status": "RELEASED about 2:30 PM IST after SCBA, SCAORA and the SG asked the CJI to step in",
-      "src": "https://www.barandbench.com/news/litigation/delhi-cjp-protest-detained-lawyers-released-after-scba-sg-intervene"
+      "src": "https://www.barandbench.com/news/litigation/delhi-cjp-protest-detained-lawyers-released-after-scba-sg-intervene",
+      "image": {
+        "url": "https://media.assettype.com/barandbench%2F2026-10-10%2Frpowmvka%2FWhatsApp-Image-2026-10-10-at-2.02.05-PM.jpeg?w=1200&ar=40%3A21&auto=format%2Ccompress&ogImage=true&mode=crop&enlarge=true&overlay=false&overlay_position=bottom&overlay_width=100",
+        "alt": "A group of lawyers on the steps outside the Supreme Court.",
+        "credit": "Bar and Bench",
+        "source_url": "https://www.barandbench.com/news/litigation/delhi-cjp-protest-detained-lawyers-released-after-scba-sg-intervene"
+      }
     },
     {
       "name": "Deepak Baliyan",
@@ -297,7 +327,13 @@
       "where": "Taken to New Police Lines, Kingsway Camp (6 Oct) and Barakhamba Road police station (7 Oct)",
       "reason": "Police said no prior permission",
       "status": "RELEASED: about 10 PM on 6 Oct; about 8:30 PM on 7 Oct (TOI)",
-      "src": "https://www.indiatoday.in/india/story/rahul-gandhi-priyanka-gandhi-detained-again-opposition-protest-gyanesh-kumar-3011910-2026-10-07"
+      "src": "https://www.indiatoday.in/india/story/rahul-gandhi-priyanka-gandhi-detained-again-opposition-protest-gyanesh-kumar-3011910-2026-10-07",
+      "image": {
+        "url": "https://akm-img-a-in.tosshub.com/indiatoday/images/story/202610/in-this-image-received-on-oct-7--2026--police-personnel-remove-congress-mp-priyanka-gandhi-vadra-f-074900781-16x9_0.png?VersionId=DLx7d7klE2loGscF0wYFRciPFYdCRPFv",
+        "alt": "Police officers lifting Priyanka Gandhi Vadra during a protest.",
+        "credit": "India Today",
+        "source_url": "https://www.indiatoday.in/india/story/rahul-gandhi-priyanka-gandhi-detained-again-opposition-protest-gyanesh-kumar-3011910-2026-10-07"
+      }
     },
     {
       "name": "Arvind Kejriwal, Sanjay Singh, Saurabh Bharadwaj, Durgesh Pathak",
@@ -315,7 +351,13 @@
         "https://x.com/ians_india/status/2108923169948180813",
         "https://x.com/htTweets/status/2108927483399872887",
         "https://x.com/PTI_News/status/2108931506735559124"
-      ]
+      ],
+      "image": {
+        "url": "https://static.toiimg.com/thumb/msid-134851875,width-1280,height-720,resizemode-6,overlay-toi_sw,pt-32,y_pad-600/photo.jpg",
+        "alt": "Arvind Kejriwal standing beside a police bus.",
+        "credit": "The Times of India",
+        "source_url": "https://timesofindia.indiatimes.com/india/watch-arvind-kejriwal-detained-outside-residence-while-attempting-to-march-to-jantar-mantar/articleshow/134851629.cms"
+      }
     },
     {
       "name": "Gopal Rai",
@@ -452,7 +494,13 @@
       "t": "10 Oct, ~7:48 AM",
       "importance": "very-important",
       "e": "Dhruv Rathee detained at his Gurugram home.",
-      "src": "https://www.thehindu.com/news/cities/Delhi/dhruv-rathee-detained-cec-gyanesh-kumar-jantar-mantar-protest-updates/article71567131.ece"
+      "src": "https://www.thehindu.com/news/cities/Delhi/dhruv-rathee-detained-cec-gyanesh-kumar-jantar-mantar-protest-updates/article71567131.ece",
+      "image": {
+        "url": "https://th-i.thgim.com/public/incoming/4d5nbx/article71567113.ece/alternates/LANDSCAPE_1200/PTI10_08_2026_000196A.jpg",
+        "alt": "Dhruv Rathee speaking into a microphone.",
+        "credit": "The Hindu",
+        "source_url": "https://www.thehindu.com/news/cities/Delhi/dhruv-rathee-detained-cec-gyanesh-kumar-jantar-mantar-protest-updates/article71567131.ece"
+      }
     },
     {
       "t": "10 Oct, 8:30 AM",
@@ -470,7 +518,13 @@
       "t": "10 Oct, ~10:30 AM",
       "importance": "very-important",
       "e": "Dipke, Das and Ranka detained on board their Air India flight at IGI. CJP releases a pre-recorded video handing the lead to Ajinkya Shinde.",
-      "src": "https://www.ndtv.com/india-news/cjp-protest-jantar-mantar-delhi-detained-abhijeet-dipke-hands-over-cjp-protest-baton-to-ajinkya-shinde-12165495"
+      "src": "https://www.ndtv.com/india-news/cjp-protest-jantar-mantar-delhi-detained-abhijeet-dipke-hands-over-cjp-protest-baton-to-ajinkya-shinde-12165495",
+      "image": {
+        "url": "https://c.ndtvimg.com/2026-10/8i33922s_ajinkya_625x300_10_October_26.jpg?im=FitAndFill,algorithm=dnn,width=1600,height=900",
+        "alt": "Abhijeet Dipke, Saurav Das and Ashutosh Ranka seated in a police bus.",
+        "credit": "NDTV",
+        "source_url": "https://www.ndtv.com/india-news/cjp-protest-jantar-mantar-delhi-detained-abhijeet-dipke-hands-over-cjp-protest-baton-to-ajinkya-shinde-12165495"
+      }
     },
     {
       "t": "10 Oct, ~11 AM",
@@ -515,7 +569,13 @@
       "t": "10 Oct, ~1:42 PM",
       "importance": "very-important",
       "e": "Manish Sisodia and Punjab AAP leaders Baltej Punia and Sonia Mann detained by Chandigarh Police near the Punjab Chief Electoral Officer's office. Punjab FM Harpal Singh Cheema also took part.",
-      "src": "https://www.tribuneindia.com/news/punjab/aap-holds-protest-against-cec-in-chandigarh-backs-cjp-stir-call-sisodia-other-leaders-detained/"
+      "src": "https://www.tribuneindia.com/news/punjab/aap-holds-protest-against-cec-in-chandigarh-backs-cjp-stir-call-sisodia-other-leaders-detained/",
+      "image": {
+        "url": "https://www.tribuneindia.com/sortd-service/imaginary/v22-01/jpg/large/high?url=dGhldHJpYnVuZS1zb3J0ZC1wcm8tcHJvZC1zb3J0ZC9tZWRpYTE5ZGMzOTcwLWM0OGEtMTFmMS05N2QyLTcxMzIwNTZiZTJjZS5qcGc=",
+        "alt": "A crowd at an outdoor protest, many people holding flags.",
+        "credit": "The Tribune",
+        "source_url": "https://www.tribuneindia.com/news/punjab/aap-holds-protest-against-cec-in-chandigarh-backs-cjp-stir-call-sisodia-other-leaders-detained/"
+      }
     },
     {
       "t": "10 Oct, ~2:55–3:25 PM",
@@ -525,7 +585,13 @@
         "https://timesofindia.indiatimes.com/india/watch-arvind-kejriwal-detained-outside-residence-while-attempting-to-march-to-jantar-mantar/articleshow/134851629.cms",
         "https://www.businesstoday.in/india/story/cjp-protest-today-after-mamata-delhi-police-detains-arvind-kejriwal-560810-2026-10-10",
         "https://theprint.in/india/jantar-mantar-delhi-cjp-protest-live-updates/3066985/"
-      ]
+      ],
+      "image": {
+        "url": "https://static.toiimg.com/thumb/msid-134851875,width-1280,height-720,resizemode-6,overlay-toi_sw,pt-32,y_pad-600/photo.jpg",
+        "alt": "Arvind Kejriwal standing beside a police bus.",
+        "credit": "The Times of India",
+        "source_url": "https://timesofindia.indiatimes.com/india/watch-arvind-kejriwal-detained-outside-residence-while-attempting-to-march-to-jantar-mantar/articleshow/134851629.cms"
+      }
     },
     {
       "t": "10 Oct, 3:23 PM",
@@ -1433,7 +1499,13 @@
       "t": "10 Oct, ~10:00 PM",
       "importance": "very-important",
       "e": "NDTV: all of about 3,000 detainees were released except Abhijeet Dipke, Dhruv Rathee and two other CJP leaders. The report says Dipke, Saurav Das, Ashutosh Ranka and Dhruv Rathee remained in custody. Police had said Dipke was told he could leave for his grandmother's funeral, but by evening it was not clear if he would be released.",
-      "src": "https://www.ndtv.com/india-news/4-ex-chief-ministers-among-1-500-detained-in-delhi-in-police-crackdown-on-cjp-protest-dipke-mamata-vijayan-kejriwal-among-them-12166791"
+      "src": "https://www.ndtv.com/india-news/4-ex-chief-ministers-among-1-500-detained-in-delhi-in-police-crackdown-on-cjp-protest-dipke-mamata-vijayan-kejriwal-among-them-12166791",
+      "image": {
+        "url": "https://c.ndtvimg.com/2026-10/7g30ntbk_new-delhi-oct-10-ani-police-batoncharge-to-disperse-the-crowd-ahead-of-the-protest-called-by-the-cjp-at-connaught-place-in-new-delhi-on-saturday-ani-photosumit_625x300_10_October_26.png?im=FaceCrop,algorithm=dnn,width=1600,height=900",
+        "alt": "Police officers carrying batons move through a crowd.",
+        "credit": "NDTV",
+        "source_url": "https://www.ndtv.com/india-news/4-ex-chief-ministers-among-1-500-detained-in-delhi-in-police-crackdown-on-cjp-protest-dipke-mamata-vijayan-kejriwal-among-them-12166791"
+      }
     },
     {
       "t": "10 Oct, 10:02 PM",

@@ -113,13 +113,34 @@ def is_vip(name):
 ordered = [item for _, item in sorted(enumerate(d['timeline']), key=feed_sort_key, reverse=True)]
 top = [item for item in ordered if importance(item) == 'very-important']
 
+def figure(image, kind):
+    if not isinstance(image, dict) or not image.get('url'):
+        return ''
+    alt = image.get('alt') or ''
+    credit = image.get('credit') or ''
+    src = image.get('source_url') or ''
+    if credit and src:
+        cap = f'<figcaption class="credit"><a href="{e(src)}" target="_blank" rel="noopener">{e(credit)}</a></figcaption>'
+    elif credit:
+        cap = f'<figcaption class="credit">{e(credit)}</figcaption>'
+    else:
+        cap = ''
+    return (
+        f'<figure class="{kind}">'
+        f'<img src="{e(image["url"])}" alt="{e(alt)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest(\'figure\').hidden=true">'
+        f'{cap}</figure>'
+    )
+
 def feed_item(item, pinned=False):
     level = importance(item)
     cls = 'pin' if pinned else 'item'
+    shot = figure(item.get('image'), 'hero' if pinned else 'thumb')
     return (
         f'<article class="{cls} {level}">'
+        f'{shot if pinned else ""}'
         f'<div class="meta">{badge(level)}<time>{e(item["t"])}</time><span class="tz">IST</span></div>'
         f'<p>{e(item["e"])}</p>'
+        f'{"" if pinned else shot}'
         f'<div class="srcs">{links(item.get("src"))}</div>'
         f'</article>'
     )
@@ -133,6 +154,7 @@ pins = ''.join(feed_item(item, pinned=True) for item in top)
 # Detainees stay in the order stored in data.json.
 people = ''.join(
     f'<article class="person{" very-important" if is_vip(x["name"]) else ""}"><div class="person-main"><div class="person-id"><h3>{e(x["name"])}</h3><span class="chips">{badge("very-important") if is_vip(x["name"]) else ""}{status_chip(x["status"])}</span></div>'
+    f'{figure(x.get("image"), "thumb")}'
     f'<p class="who">{e(x["who"])}</p>'
     f'<p class="where"><span>Time</span> {e(x["when"])}</p>'
     f'<p class="where"><span>Place</span> {e(x["where"])}</p>'
@@ -231,6 +253,15 @@ h2 small{font:400 .75rem/1.6 ui-sans-serif,system-ui,sans-serif;letter-spacing:0
 .srcs{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:14px}
 .src{display:inline-block;max-width:100%;overflow-wrap:anywhere;font-size:.7rem;font-weight:600;line-height:1.7}
 .src:before{content:""}
+.hero,.thumb{margin:0;min-width:0;max-width:100%}
+.pin>.hero{margin:0 0 16px}
+.item>.thumb,.person .thumb{margin:12px 0 0}
+.hero img,.thumb img{display:block;width:100%;max-width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:6px;background:var(--line)}
+.thumb img{max-width:220px;aspect-ratio:3/2}
+.hero img{max-height:440px}
+.credit{margin:6px 0 0;color:var(--muted);font-size:.68rem;font-weight:600;line-height:1.4}
+.credit a{color:var(--muted)}
+.credit a:hover{color:var(--link-hover)}
 .lede{max-width:85ch;margin:0;font:400 1.15rem/1.8 Georgia,"Times New Roman",serif;color:var(--ink)}
 .stats{gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--card)}
 .stat{padding:24px;border:0;border-radius:0;box-shadow:none}
@@ -280,7 +311,8 @@ footer code{font-size:.7rem;color:var(--ink)}
   .item{display:grid;grid-template-columns:205px minmax(0,1fr);gap:0 24px}
   .item .meta{align-content:start;align-items:baseline;flex-direction:column;gap:6px;padding-top:4px}
   .item p{margin:0}
-  .item .srcs{grid-column:2}
+  .item .thumb,.item .srcs{grid-column:2}
+  .item .thumb{justify-self:start}
 }
 @media(max-width:700px){
   html{scroll-padding-top:250px}
@@ -304,6 +336,8 @@ footer code{font-size:.7rem;color:var(--ink)}
   .two h2{min-height:0}
   .box{padding:4px 20px}
   .lede{font-size:1.05rem}
+  .thumb img{max-width:180px}
+  .hero img{max-height:220px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media print{
@@ -420,12 +454,26 @@ function isVip(name) {
   return false;
 }
 
+function figure(image, kind) {
+  if (!image || !image.url) return "";
+  var alt = image.alt || "";
+  var credit = image.credit || "";
+  var src = image.source_url || "";
+  var cap = "";
+  if (credit && src) cap = '<figcaption class="credit"><a href="' + esc(src) + '" target="_blank" rel="noopener">' + esc(credit) + "</a></figcaption>";
+  else if (credit) cap = '<figcaption class="credit">' + esc(credit) + "</figcaption>";
+  return '<figure class="' + kind + '"><img src="' + esc(image.url) + '" alt="' + esc(alt) + '" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest(' + "'figure'" + ').hidden=true">' + cap + "</figure>";
+}
+
 function feedItem(item, pinned) {
   var level = importance(item);
   var cls = pinned ? "pin" : "item";
+  var shot = figure(item.image, pinned ? "hero" : "thumb");
   return '<article class="' + cls + " " + level + '">'
+    + (pinned ? shot : "")
     + '<div class="meta">' + badge(level) + "<time>" + esc(item.t) + '</time><span class="tz">IST</span></div>'
     + "<p>" + esc(item.e) + "</p>"
+    + (pinned ? "" : shot)
     + '<div class="srcs">' + links(item.src) + "</div>"
     + "</article>";
 }
@@ -449,6 +497,7 @@ function renderParts(d) {
     var x = d.detainees[n];
     var vip = isVip(x.name);
     people += '<article class="person' + (vip ? " very-important" : "") + '"><div class="person-main"><div class="person-id"><h3>' + esc(x.name) + '</h3><span class="chips">' + (vip ? badge("very-important") : "") + statusChip(x.status) + "</span></div>"
+      + figure(x.image, "thumb")
       + '<p class="who">' + esc(x.who) + "</p>"
       + '<p class="where"><span>Time</span> ' + esc(x.when) + "</p>"
       + '<p class="where"><span>Place</span> ' + esc(x.where) + "</p>"

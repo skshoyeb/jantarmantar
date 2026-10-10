@@ -196,6 +196,19 @@ class LiveRenderTests(unittest.TestCase):
         self.assertIn(html.escape(data['sources'][0]), static['sources'])
         self.assertIn(html.escape(data['sources'][-1]), static['sources'])
 
+        def with_image(rows):
+            return sum(1 for row in rows if isinstance(row.get('image'), dict) and row['image'].get('url'))
+
+        pinned = [item for item in data['timeline'] if str(item.get('importance') or '').lower() == 'very-important']
+        self.assertEqual(static['pins'].count('<figure class="hero">'), with_image(pinned))
+        self.assertEqual(static['feed'].count('<figure class="thumb">'), with_image(data['timeline']))
+        self.assertEqual(static['people'].count('<figure class="thumb">'), with_image(data['detainees']))
+        self.assertNotIn('<figure class="hero">', static['feed'])
+        if with_image(data['timeline']):
+            self.assertIn('loading="lazy"', static['feed'])
+            self.assertIn('object-fit:cover', page)
+            self.assertIn("onerror=\"this.closest('figure').hidden=true\"", static['feed'])
+
 
 NODE = r'''
 const fs = require('fs');
