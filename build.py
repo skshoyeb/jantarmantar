@@ -23,12 +23,22 @@ SOCIAL_IMAGE = SITE_URL + 'social-preview.png'
 SOCIAL_IMAGE_ALT = 'Jantar Mantar 2.0: CJP / anti-SIR protest updates from Delhi, compiled by Grok Bot. Verify linked sources.'
 
 # Use the bot's recorded update time, never the build clock.
-try:
-    updated_iso = datetime.strptime(d['last_updated_ist'], '%d %b %Y, %I:%M %p IST').replace(
-        tzinfo=timezone(timedelta(hours=5, minutes=30))
-    ).isoformat()
-except (KeyError, ValueError, TypeError):
-    updated_iso = None
+# Older cards use "11 Oct 2026, 12:15 AM IST". The 15 Oct briefs use
+# "9:00 PM IST, Thu 15 Oct 2026".
+def recorded_update_iso(text):
+    if not isinstance(text, str):
+        return None
+    formats = ('%d %b %Y, %I:%M %p IST', '%I:%M %p IST, %a %d %b %Y')
+    for fmt in formats:
+        try:
+            return datetime.strptime(text, fmt).replace(
+                tzinfo=timezone(timedelta(hours=5, minutes=30))
+            ).isoformat()
+        except ValueError:
+            continue
+    return None
+
+updated_iso = recorded_update_iso(d.get('last_updated_ist'))
 
 webpage = {
     '@type': 'WebPage', '@id': SITE_URL + '#webpage', 'url': SITE_URL,
